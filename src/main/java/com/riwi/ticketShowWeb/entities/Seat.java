@@ -1,5 +1,6 @@
 package com.riwi.ticketShowWeb.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -18,11 +19,15 @@ import lombok.NoArgsConstructor;
 public class Seat {
     
     @Id
+    @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private int available;
 
+    @Column(nullable = false)
+    private boolean available;
+
+    @Column(nullable = false)
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "fk_id_event", referencedColumnName = "id")
-    private Event events;
+    private Event event;
 }

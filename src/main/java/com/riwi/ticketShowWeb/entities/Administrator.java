@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 public class Administrator {
     
     @Id
+    @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_admin;
 

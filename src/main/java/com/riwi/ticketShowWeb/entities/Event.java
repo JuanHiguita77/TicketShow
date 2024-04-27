@@ -24,6 +24,7 @@ import lombok.ToString;
 public class Event {
     
     @Id
+    @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -39,12 +40,20 @@ public class Event {
     @Column(length = 45, nullable = false)
     private String description;
 
+    @Column(nullable = false)
     private Date date;
+
+    @Column(length = 255, nullable = false)
     private String image_url;
+
+    @Column(nullable = false)
     private double price;
+
+    @Column(nullable = false)
     private int capacity;
 
-    @OneToMany(mappedBy = "events", cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.EAGER)
+    @Column(nullable = false)
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private List<Seat> seats;
