@@ -34,3 +34,17 @@ Queremos facilitar la manera de obtener tus entradas no solo a un tipo de evento
 
 ### E-COMMERCE
 Somos una web que se especializará en la venta de tickets online para shows de diferentes tipos.
+
+### DIAGRAMAS
+
+## BASE DE DATOS
+
+![Ticketshow DB](Docs/diagramas/DataBaseModel.jpg)
+
+## ESTRUCTURA DE COMPONENTES
+
+![Ticketshow StructureComponent](Docs/diagramas/componentStructure.jpg)
+
+## DIAGRAMA UML DE CLASES
+
+![Ticketshow UMLClases](Docs/diagramas/UMLClases.jpg)
