@@ -1,4 +1,4 @@
-package com.riwi.ticketShowWeb.entities;
+package com.riwi.ticketShowWeb.domain.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

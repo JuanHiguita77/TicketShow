@@ -1,4 +1,4 @@
-package com.riwi.ticketShowWeb.entities;
+package com.riwi.ticketShowWeb.domain.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -26,7 +26,6 @@ public class Seat {
     @Column(nullable = false)
     private boolean available;
 
-    @Column(nullable = false)
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "fk_id_event", referencedColumnName = "id")
     private Event event;
