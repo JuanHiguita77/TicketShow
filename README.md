@@ -8,7 +8,7 @@
 - Felipe Forero
 - Ana Zapata
 
-##TABLERO TRELLO
+## TABLERO TRELLO
 
  - https://trello.com/b/7OCyzovm/tareas-ts
    
