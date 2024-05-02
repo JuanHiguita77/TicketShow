@@ -8,6 +8,10 @@
 - Felipe Forero
 - Ana Zapata
 
+##TABLERO TRELLO
+
+ - https://trello.com/b/7OCyzovm/tareas-ts
+   
 ## PROPUESTA DEL PROYECTO
 
 ### ¿POR QUÉ?
