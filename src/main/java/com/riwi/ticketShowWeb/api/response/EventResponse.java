@@ -1,6 +1,7 @@
 package com.riwi.ticketShowWeb.api.response;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,4 +23,5 @@ public class EventResponse {
     private String image_url;
     private double price;
     private int capacity;
+    private List<SeatResponse> vacants;
 }

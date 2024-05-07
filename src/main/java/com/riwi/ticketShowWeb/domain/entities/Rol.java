@@ -34,7 +34,7 @@ public class Rol {
     @OneToOne(
         fetch = FetchType.EAGER,
         mappedBy = "rol",
-        orphanRemoval = true
+        orphanRemoval = false
     )
-    private User users;
+    private User user;
 }

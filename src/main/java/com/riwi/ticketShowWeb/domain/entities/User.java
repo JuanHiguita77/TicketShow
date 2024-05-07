@@ -10,6 +10,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -35,6 +37,7 @@ public class User {
     @Column(length = 50, nullable = false)
     private String email;
 
+    @Temporal(TemporalType.DATE)
     private Date deleteAt;
 
     @OneToOne(fetch = FetchType.LAZY)

@@ -1,7 +1,6 @@
 package com.riwi.ticketShowWeb.domain.entities;
 
-import java.util.Date;
-
+import java.sql.Date;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
