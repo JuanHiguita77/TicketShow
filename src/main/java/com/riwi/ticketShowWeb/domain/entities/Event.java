@@ -1,6 +1,7 @@
 package com.riwi.ticketShowWeb.domain.entities;
 
-import java.sql.Date;
+import java.util.Date;
+
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -12,6 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -19,12 +21,12 @@ import lombok.ToString;
 
 @Entity(name = "event")
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Event {
     
     @Id
-    @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -52,9 +54,14 @@ public class Event {
     @Column(nullable = false)
     private int capacity;
 
-    @Column(nullable = false)
-    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
+    @OneToMany(
+        fetch = FetchType.EAGER,
+        mappedBy = "event",
+        cascade = CascadeType.ALL,
+        orphanRemoval = true
+    )
     private List<Seat> seats;
+
 }
