@@ -51,4 +51,4 @@ Somos una web que se especializará en la venta de tickets online para shows de 
 
 ## DIAGRAMA UML DE CLASES
 
-![Ticketshow UMLClases](Docs/diagramas/UMLClases.png)
+![Ticketshow UMLClases](Docs/diagramas/UMLClasesFull.png)
