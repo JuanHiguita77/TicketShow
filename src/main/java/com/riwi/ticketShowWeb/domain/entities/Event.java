@@ -74,6 +74,6 @@ public class Event {
         orphanRemoval = true
     )
     //@ApiModelProperty(notes = "List of seats associated with the event")
-    private List<Seat> seat;
+    private List<Seat> seats;
 
 }
