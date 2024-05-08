@@ -1,6 +1,6 @@
 package com.riwi.ticketShowWeb.api.request;
 
-import java.util.Date;
+import java.sql.Date;
 
 //import io.swagger.annotations.ApiModel;
 //import io.swagger.annotations.ApiModelProperty;
