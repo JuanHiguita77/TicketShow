@@ -1,8 +1,6 @@
 package com.riwi.ticketShowWeb.domain.entities;
 
-//import io.swagger.annotations.ApiModel;
-//import io.swagger.annotations.ApiModelProperty;
-
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -21,20 +19,20 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-//@ApiModel(description = "Entity that represents a seat")
+@Schema(description = "Entity that represents a seat")
 public class Seat {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@ApiModelProperty(notes = "Unique identifier for the seat")
+    @Schema(description = "Unique identifier for the seat")
     private Long id;
 
     @Column(nullable = false)
-    //@ApiModelProperty(notes = "Availability status of the seat")
+    @Schema(description = "Availability status of the seat")
     private boolean available;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    //@ApiModelProperty(notes = "Seat availability status")
+    @Schema(description = "Seat availability status")
     @JoinColumn(name = "fk_id_event", referencedColumnName = "id")
     private Event event;
 }

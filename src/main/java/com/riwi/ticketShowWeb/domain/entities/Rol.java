@@ -1,8 +1,6 @@
 package com.riwi.ticketShowWeb.domain.entities;
 
-//import io.swagger.annotations.ApiModel;
-//import io.swagger.annotations.ApiModelProperty;
-
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -22,16 +20,16 @@ import lombok.ToString;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-//@ApiModel(description = "Entity representing a role")
+@Schema(description = "Entity representing a role")
 public class Rol {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-   // @ApiModelProperty(notes = "Unique identifier for the role")
+    @Schema(description =  "Unique identifier for the role")
     private Long id;
 
     @Column(length = 45 ,nullable = false)
-   // @ApiModelProperty(notes = "Name of the role")
+    @Schema(description =  "Name of the role")
     private String name;
 
     @ToString.Exclude
@@ -41,6 +39,6 @@ public class Rol {
         mappedBy = "rol",
         orphanRemoval = false
     )
-   // @ApiModelProperty(notes = "User associated with the role")
+    @Schema(description =  "User associated with the role")
     private User user;
 }

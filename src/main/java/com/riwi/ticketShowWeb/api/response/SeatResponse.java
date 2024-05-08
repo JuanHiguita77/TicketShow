@@ -1,8 +1,6 @@
 package com.riwi.ticketShowWeb.api.response;
 
-//import io.swagger.annotations.ApiModel;
-//import io.swagger.annotations.ApiModelProperty;
-
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,12 +10,12 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-//@ApiModel(description = "Response object for seat information")
+@Schema(description = "Response object for seat information")
 public class SeatResponse {
     
-    //@ApiModelProperty(notes = "ID of the seat")
+    @Schema(description = "ID of the seat")
     private Long id;
 
-    //@ApiModelProperty(notes = "Availability of seats")
+    @Schema(description = "Availability of seats")
     private boolean available;
 }

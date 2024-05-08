@@ -1,7 +1,6 @@
 package com.riwi.ticketShowWeb.api.request;
 
-//import io.swagger.annotations.ApiModel;
-//import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -14,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-//@ApiModel(description = "Request object for user information")
+@Schema(description = "Request object for user information")
 public class UserRequest {
 
     @Size(
@@ -23,7 +22,7 @@ public class UserRequest {
         message = "The name must be between 1 and 100 characters"
     )
     @NotBlank(message = "The name is required")
-    //@ApiModelProperty(notes = "Name of the user")
+    @Schema(description =  "Name of the user")
     private String name;
 
     @Size(
@@ -32,11 +31,11 @@ public class UserRequest {
         message = "The password must be between 8 and 255 characters"
     )
     @NotBlank(message = "The password is required")
-    //@ApiModelProperty(notes = "Password of the user")
+    @Schema(description =  "Password of the user")
     private String password;
 
     @Email(message = "Invalid email format")
     @NotBlank(message = "The email is required")
-    //@ApiModelProperty(notes = "Email address of the user")
+    @Schema(description =  "Email address of the user")
     private String email;
 }
