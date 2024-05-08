@@ -1,6 +1,6 @@
 package com.riwi.ticketShowWeb.domain.entities;
 
-import java.util.Date;
+import java.sql.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
