@@ -3,7 +3,7 @@ package com.riwi.ticketShowWeb.api.response;
 //import io.swagger.annotations.ApiModel;
 //import io.swagger.annotations.ApiModelProperty;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
