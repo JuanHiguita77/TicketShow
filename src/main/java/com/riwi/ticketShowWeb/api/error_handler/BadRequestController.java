@@ -9,12 +9,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.riwi.ticketShowWeb.api.dto.errors.BaseErrorResponse;
 import com.riwi.ticketShowWeb.api.dto.errors.ErrorsResp;
 
-@RestController
+@RestControllerAdvice
 @ResponseStatus(code = HttpStatus.BAD_REQUEST)
 public class BadRequestController 
 {

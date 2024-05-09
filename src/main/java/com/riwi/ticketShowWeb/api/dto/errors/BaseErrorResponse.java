@@ -1,5 +1,7 @@
 package com.riwi.ticketShowWeb.api.dto.errors;
 
+import java.io.Serializable;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +11,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-public class BaseErrorResponse 
+public class BaseErrorResponse implements Serializable
 {
     private String status;    
     private Integer code;   
