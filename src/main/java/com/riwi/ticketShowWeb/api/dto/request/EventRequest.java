@@ -1,4 +1,4 @@
-package com.riwi.ticketShowWeb.api.request;
+package com.riwi.ticketShowWeb.api.dto.request;
 
 import java.sql.Date;
 
