@@ -70,7 +70,7 @@ public class Event {
         fetch = FetchType.EAGER,
         mappedBy = "event",
         cascade = CascadeType.ALL,
-        orphanRemoval = true
+        orphanRemoval = false
     )
     @Schema(description =  "List of seats associated with the event")
     private List<Seat> seats;

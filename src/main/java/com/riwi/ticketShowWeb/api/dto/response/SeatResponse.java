@@ -1,4 +1,4 @@
-package com.riwi.ticketShowWeb.api.response;
+package com.riwi.ticketShowWeb.api.dto.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;

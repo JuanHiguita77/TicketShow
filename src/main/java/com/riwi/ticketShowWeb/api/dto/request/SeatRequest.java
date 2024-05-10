@@ -1,4 +1,4 @@
-package com.riwi.ticketShowWeb.api.request;
+package com.riwi.ticketShowWeb.api.dto.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Min;
