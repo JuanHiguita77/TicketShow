@@ -33,7 +33,7 @@ public class SeatController
     
     @ApiResponse(
         responseCode = "400",
-        description = "when id event is invalid",
+        description = "when id event or list of seats id are invalids",
         content = {
             @Content(
                 mediaType = "application/json",

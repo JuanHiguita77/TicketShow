@@ -12,6 +12,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -61,6 +63,8 @@ public class Event {
     private double price;
 
     @Column(nullable = false)
+    @Min(value = 5, message = "Capacity must be at least 5")
+    @Max(value = 80, message = "Capacity cannot exceed 80")
     @Schema(description = "Capacity of the event")
     private int capacity;
 

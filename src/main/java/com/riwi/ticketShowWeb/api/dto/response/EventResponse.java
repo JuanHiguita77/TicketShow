@@ -43,6 +43,6 @@ public class EventResponse {
     @Schema(description = "Event capacity")
     private int capacity;
 
-    @Schema(description = "Event seating list")
+    @Schema(description = "Event seats list")
     private List<SeatResponse> seats;
 }

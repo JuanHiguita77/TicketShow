@@ -38,6 +38,16 @@ public class EventController {
     @Autowired
     private final IEventService eventService;
 
+    @ApiResponse(
+        responseCode = "400",
+        description = "when page or size are not int numbers",
+        content = {
+            @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation = ErrorResponse.class)
+            )
+        }
+    )
     @Operation(
         summary = "List all events with pagination",
         description = "The page and page size must be sent to receive all events"
@@ -45,8 +55,8 @@ public class EventController {
     @GetMapping
     public ResponseEntity<Page<EventResponse>>listAll(
         @RequestParam(defaultValue = "1") int page,
-        @RequestParam(defaultValue = "2") int size) {
-        return ResponseEntity.ok(this.eventService.listAll(page-1, size));
+        @RequestParam(defaultValue = "4") int size) {
+        return ResponseEntity.ok(this.eventService.listAll(page - 1, size));
     }
 
     @ApiResponse(
@@ -68,6 +78,16 @@ public class EventController {
         return ResponseEntity.ok(this.eventService.findById(id));
     }
 
+    @ApiResponse(
+        responseCode = "400",
+        description = "when send title is invalid",
+        content = {
+            @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation = ErrorResponse.class)
+            )
+        }
+    )
     @Operation(
         summary = "bring an event by title",
         description = "you must send the title of the event to search"
@@ -77,6 +97,16 @@ public class EventController {
         return ResponseEntity.ok(this.eventService.findByTitle(title));
     }
 
+    @ApiResponse(
+        responseCode = "400",
+        description = "when send city is invalid",
+        content = {
+            @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation = ErrorResponse.class)
+            )
+        }
+    )
     @Operation(
         summary = "bring an event by city",
         description = "you must send the city of the event to search"
@@ -86,6 +116,16 @@ public class EventController {
         return ResponseEntity.ok(this.eventService.findByCity(city));
     }
     
+    @ApiResponse(
+        responseCode = "400",
+        description = "when send info is invalid",
+        content = {
+            @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation = ErrorResponse.class)
+            )
+        }
+    )
     @Operation(
         summary = "Create a new event",
         description = "send  information for create a new event"
@@ -119,7 +159,7 @@ public class EventController {
 
     @ApiResponse(
         responseCode = "400",
-        description = "when id is invalid",
+        description = "when id or send event info are invalid",
         content = {
             @Content(
                 mediaType = "application/json",
