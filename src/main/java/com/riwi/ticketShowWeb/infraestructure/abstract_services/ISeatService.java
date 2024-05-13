@@ -1,11 +1,8 @@
 package com.riwi.ticketShowWeb.infraestructure.abstract_services;
 
-import com.riwi.ticketShowWeb.api.request.SeatRequest;
-import com.riwi.ticketShowWeb.api.response.SeatResponse;
-import com.riwi.ticketShowWeb.infraestructure.services.CrudService;
+import java.util.List;
 
-
-public interface ISeatService extends CrudService<SeatRequest, SeatResponse, Long> 
+public interface ISeatService
 {
-    public SeatResponse findById(Long id);
+   public void choosedSeats(Long idEvent, List<Long> selectedSeats);    
 }

@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.riwi.ticketShowWeb.api.dto.request.EventRequest;
 import com.riwi.ticketShowWeb.api.dto.response.EventResponse;
 import com.riwi.ticketShowWeb.infraestructure.abstract_services.IEventService;
-
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -28,8 +27,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
-
-
 
 
 @RestController
@@ -49,7 +46,7 @@ public class EventController {
     public ResponseEntity<Page<EventResponse>>listAll(
         @RequestParam(defaultValue = "1") int page,
         @RequestParam(defaultValue = "2") int size) {
-        return ResponseEntity.ok(this.eventService.list(page-1, size));
+        return ResponseEntity.ok(this.eventService.listAll(page-1, size));
     }
 
     @ApiResponse(
@@ -75,16 +72,16 @@ public class EventController {
         summary = "bring an event by title",
         description = "you must send the title of the event to search"
     )
-    @GetMapping(path = "title/{title}")
+    @GetMapping(path = "/title/{title}")
     public ResponseEntity<EventResponse> searchByTtile(@PathVariable String title) {
         return ResponseEntity.ok(this.eventService.findByTitle(title));
     }
 
-  @Operation(
+    @Operation(
         summary = "bring an event by city",
         description = "you must send the city of the event to search"
     )
-    @GetMapping(path = "city/{city}")
+    @GetMapping(path = "/city/{city}")
     public ResponseEntity<EventResponse> searchByCity(@PathVariable String city) {
         return ResponseEntity.ok(this.eventService.findByCity(city));
     }
@@ -93,9 +90,9 @@ public class EventController {
         summary = "Create a new event",
         description = "send  information for create a new event"
     )
-    @PostMapping()
+    @PostMapping(path = "/add")
     public ResponseEntity<EventResponse> save(@Validated @RequestBody EventRequest event) {
-        return ResponseEntity.ok(this.eventService.insert(event));
+        return ResponseEntity.ok(this.eventService.save(event));
     }
     
     @ApiResponse(
@@ -112,7 +109,7 @@ public class EventController {
         summary = "Delete an event by id",
         description = "send the event id to delete it"
     )
-    @DeleteMapping(path = "/{id}")
+    @DeleteMapping(path = "/delete/{id}")
     public ResponseEntity<Map<String, String>> delete(@PathVariable Long id){
         Map<String, String> response = new HashMap<>();
         response.put("message", "Event is deleted succesfully");
@@ -134,10 +131,8 @@ public class EventController {
         summary = "Update an event",
         description = "send information for update an event"
     )
-    @PutMapping(path = "/{id}")
-    public ResponseEntity<EventResponse> update(@PathVariable Long id,@Validated @RequestBody EventRequest event) {
+    @PutMapping(path = "/update/{id}")
+    public ResponseEntity<EventResponse> update(@PathVariable Long id, @Validated @RequestBody EventRequest event) {
         return ResponseEntity.ok(this.eventService.update(id, event));
     }
-    
-    
 }

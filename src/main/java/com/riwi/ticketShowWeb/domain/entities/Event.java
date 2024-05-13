@@ -1,6 +1,6 @@
 package com.riwi.ticketShowWeb.domain.entities;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -50,7 +50,7 @@ public class Event {
 
     @Column(nullable = false)
     @Schema(description = "Date of the event")
-    private Date date;
+    private LocalDate date;
 
     @Column(length = 255, nullable = false)
     @Schema(description = "URL of the event image")
@@ -67,7 +67,7 @@ public class Event {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany(
-        fetch = FetchType.EAGER,
+        fetch = FetchType.LAZY,
         mappedBy = "event",
         cascade = CascadeType.ALL,
         orphanRemoval = false
