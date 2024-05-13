@@ -41,7 +41,7 @@ public class Event {
     private String city;
 
     @Column(length = 45, nullable = false)
-    @Schema(description = "Category of the event")
+    @Schema(description = "Category of the event (e.g., theater, concerts)")
     private String category;
 
     @Column(length = 45, nullable = false)

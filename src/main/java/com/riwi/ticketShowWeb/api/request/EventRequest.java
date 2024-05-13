@@ -79,7 +79,7 @@ public class EventRequest {
     @Schema(description =  "Price of the event")
     private double price;
 
-    @Max(value = 999999, message = "Capacity must be less than or equal to 999999")
+    @Max(value = 60, message = "Capacity must be less than or equal to 60")
     @Schema(description = "Event capacity")
     @NotNull(message = "The capacity is required")
     private int capacity;
