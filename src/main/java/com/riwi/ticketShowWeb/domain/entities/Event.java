@@ -1,6 +1,6 @@
 package com.riwi.ticketShowWeb.domain.entities;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -12,8 +12,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -21,7 +22,6 @@ import lombok.ToString;
 
 @Entity(name = "event")
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Schema(description = "Entity representing an event")
@@ -41,7 +41,7 @@ public class Event {
     private String city;
 
     @Column(length = 45, nullable = false)
-    @Schema(description = "Category of the event")
+    @Schema(description = "Category of the event (e.g., theater, concerts)")
     private String category;
 
     @Column(length = 45, nullable = false)
@@ -50,7 +50,7 @@ public class Event {
 
     @Column(nullable = false)
     @Schema(description = "Date of the event")
-    private Date date;
+    private LocalDate date;
 
     @Column(length = 255, nullable = false)
     @Schema(description = "URL of the event image")
@@ -61,13 +61,15 @@ public class Event {
     private double price;
 
     @Column(nullable = false)
+    @Min(value = 5, message = "Capacity must be at least 5")
+    @Max(value = 80, message = "Capacity cannot exced 80")
     @Schema(description = "Capacity of the event")
     private int capacity;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany(
-        fetch = FetchType.EAGER,
+        fetch = FetchType.LAZY,
         mappedBy = "event",
         cascade = CascadeType.ALL,
         orphanRemoval = false

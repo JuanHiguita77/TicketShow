@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.riwi.ticketShowWeb.api.dto.request.EventRequest;
 import com.riwi.ticketShowWeb.api.dto.response.EventResponse;
 import com.riwi.ticketShowWeb.infraestructure.abstract_services.IEventService;
-
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -39,65 +38,49 @@ import org.springframework.web.bind.annotation.PutMapping;
 public class EventController {
 
     @Autowired
-    private final IEventService eventService;
-
-    @Operation(summary = "List all events with pagination", description = "The page and page size must be sent to receive all events")
-    @GetMapping
-    public ResponseEntity<Page<EventResponse>> listAll(
-            @RequestParam(defaultValue = "1") int page,
-            @RequestParam(defaultValue = "2") int size) {
-        return ResponseEntity.ok(this.eventService.list(page - 1, size));
-    }
-
-    @ApiResponse(responseCode = "400", description = "when id is invalid", content = {
-            @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))
-    })
-    @Operation(summary = "bring an event by id", description = "you must send the id of the event to search")
-    @GetMapping(path = "/{id}")
-    public ResponseEntity<EventResponse> searchById(@PathVariable Long id) {
-        return ResponseEntity.ok(this.eventService.findById(id));
-    }
-    /*
-     * @Operation(
-     * summary = "bring an event by title",
-     * description = "you must send the title of the event to search"
-     * )
-     * 
-     * @GetMapping(path = "title/{title}")
-     * public ResponseEntity<EventResponse> searchByTtile(@PathVariable String
-     * title) {
-     * return ResponseEntity.ok(this.eventService.findByTitle(title));
-     * }
-     * 
-     * @Operation(
-     * summary = "bring an event by city",
-     * description = "you must send the city of the event to search"
-     * )
-     * 
-     * @GetMapping(path = "city/{city}")
-     * public ResponseEntity<EventResponse> searchByCity(@PathVariable String city)
-     * {
-     * return ResponseEntity.ok(this.eventService.findByCity(city));
-     * }
-     */
-
-    @Operation(summary = "Create a new event", description = "send  information for create a new event")
-    @PostMapping()
+    private final IEventService eventService;    
+    @ApiResponse(
+        responseCode = "400",
+        description = "when send info is invalid",
+        content = {
+            @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation = ErrorResponse.class)
+            )
+        }
+    )
+    @Operation(
+        summary = "Create a new event",
+        description = "send  information for create a new event"
+    )
+    @PostMapping(path = "/add")
     public ResponseEntity<EventResponse> save(@Validated @RequestBody EventRequest event) {
-        return ResponseEntity.ok(this.eventService.insert(event));
+        return ResponseEntity.ok(this.eventService.save(event));
     }
-
-    @ApiResponse(responseCode = "400", description = "when id is invalid", content = {
-            @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))
-    })
-    @Operation(summary = "Delete an event by id", description = "send the event id to delete it")
-    @DeleteMapping(path = "/{id}")
-    public ResponseEntity<Map<String, String>> delete(@PathVariable Long id) {
+    
+    @ApiResponse(
+        responseCode = "400",
+        description = "when id is invalid",
+        content = {
+            @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation = ErrorResponse.class)
+            )
+        }
+    )
+    @Operation(
+        summary = "Delete an event by id",
+        description = "send the event id to delete it"
+    )
+    @DeleteMapping(path = "/delete/{id}")
+    public ResponseEntity<Map<String, String>> delete(@PathVariable Long id){
         Map<String, String> response = new HashMap<>();
         response.put("message", "Event is deleted succesfully");
         this.eventService.delete(id);
         return ResponseEntity.ok(response);
     }
+
+
 
     @ApiResponse(responseCode = "400", description = "when id is invalid", content = {
             @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))
@@ -107,6 +90,9 @@ public class EventController {
     public ResponseEntity<EventResponse> update(@PathVariable Long id, @Validated @RequestBody EventRequest event) {
         return ResponseEntity.ok(this.eventService.update(id, event));
     }
+
+
+
 
     @ApiResponse(responseCode = "400", description = "when category, city and title is invalid", content = {
         @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))
@@ -123,5 +109,6 @@ public class EventController {
         return eventService.searchEvent(category, title, city, pageable);
 
     }
+
 
 }
