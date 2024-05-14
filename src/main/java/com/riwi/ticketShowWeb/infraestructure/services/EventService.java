@@ -7,6 +7,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.riwi.ticketShowWeb.api.dto.request.EventRequest;
@@ -26,25 +27,25 @@ import lombok.AllArgsConstructor;
 public class EventService implements IEventService {
     
     @Autowired
-    private final EventRepository eventRespository;
+    private final EventRepository eventRepository;
     
     @Override
     public void delete(Long id) {
         Event event = this.find(id);
-        this.eventRespository.delete(event);
+        this.eventRepository.delete(event);
     }
     
     @Override
     public EventResponse insert(EventRequest request) {
         Event event = this.requestToEvent(request, new Event());
-        return  this.entityToResponse(this.eventRespository.save(event));
+        return  this.entityToResponse(this.eventRepository.save(event));
     }
     
     @Override
     public EventResponse update(Long id, EventRequest request) {
         Event event = this.find(id);
         Event eventUpdate = this.requestToEvent(request, event);
-        return this.entityToResponse(this.eventRespository.save(eventUpdate));
+        return this.entityToResponse(this.eventRepository.save(eventUpdate));
     }
     @Override
     public Page<EventResponse> list(int page, int size) {
@@ -52,26 +53,27 @@ public class EventService implements IEventService {
             page = 0;
         }
        PageRequest pagination =  PageRequest.of(page, size);
-       return this.eventRespository.findAll(pagination).map(this::entityToResponse);
+       return this.eventRepository.findAll(pagination).map(this::entityToResponse);
     }
     
     @Override
     public EventResponse findById(Long id) {
         return this.entityToResponse(this.find(id));
     }
-    
+   /* 
     @Override
     public EventResponse findByTitle(String title) {
-        return this.entityToResponse(this.eventRespository.findByTitle(title));
+        return this.entityToResponse(this.eventRepository.findByTitle(title));
     }
     
     @Override
     public EventResponse findByCity(String city) {
-        return this.entityToResponse(this.eventRespository.findByCity(city));
+        return this.entityToResponse(this.eventRepository.findByCity(city));
     }
     
+    */
     private Event find(Long id){
-        return this.eventRespository.findById(id).orElseThrow(()-> new IdNotFoundException("Event"));
+        return this.eventRepository.findById(id).orElseThrow(()-> new IdNotFoundException("Event"));
     }
 
     
@@ -96,9 +98,12 @@ public class EventService implements IEventService {
         return event;
     }
 
-
-
-
-
+    @Override
+    public Page<EventResponse> searchEvent(String category, String title, String city, Pageable pageable) {
+        return eventRepository.findByCategoryContainingAndTitleContainingAndCityContaining(category, title, city, pageable)
+        .map(this::entityToResponse);
+    }
 
 }
+
+
