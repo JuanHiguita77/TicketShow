@@ -41,7 +41,7 @@ public class Event {
     private String city;
 
     @Column(length = 45, nullable = false)
-    @Schema(description = "Category of the event")
+    @Schema(description = "Category of the event (e.g., theater, concerts)")
     private String category;
 
     @Column(length = 45, nullable = false)
@@ -62,7 +62,7 @@ public class Event {
 
     @Column(nullable = false)
     @Min(value = 5, message = "Capacity must be at least 5")
-    @Max(value = 80, message = "Capacity cannot exceed 80")
+    @Max(value = 80, message = "Capacity cannot exced 80")
     @Schema(description = "Capacity of the event")
     private int capacity;
 
