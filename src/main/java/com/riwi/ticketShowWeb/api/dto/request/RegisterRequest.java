@@ -13,8 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Schema(description = "Request object for register information")
-public class UserRequest {
+public class RegisterRequest {
 
     @Size(
         min = 1,
@@ -38,4 +37,5 @@ public class UserRequest {
     @NotBlank(message = "The email is required")
     @Schema(description =  "Email address of the user")
     private String email;
+    
 }
