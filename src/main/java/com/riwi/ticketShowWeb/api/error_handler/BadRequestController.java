@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -19,7 +18,7 @@ import com.riwi.ticketShowWeb.utils.exceptions.BadRequestException;
 @ResponseStatus(code = HttpStatus.BAD_REQUEST)
 public class BadRequestController 
 {
-    @ExceptionHandler(MethodArgumentNotValidException.class)
+    /*@ExceptionHandler(MethodArgumentNotValidException.class)
     public BaseErrorResponse handleBadRequest(MethodArgumentNotValidException e)
     {
         List<Map<String, String>> errors = new ArrayList<>();
@@ -37,7 +36,7 @@ public class BadRequestController
                         .status(HttpStatus.BAD_REQUEST.name())
                         .errors(errors)
                         .build();
-    }
+    }*/
 
     @ExceptionHandler(BadRequestException.class)
     public BaseErrorResponse handlerError(BadRequestException e) {

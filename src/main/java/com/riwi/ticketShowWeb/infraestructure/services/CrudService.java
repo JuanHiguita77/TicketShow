@@ -7,9 +7,9 @@ public interface CrudService<RQ, RS, ID>
 {
     void delete(ID id);
 
-    RS insert(RQ request);
+    RS save(RQ request);
 
     RS update(ID id, RQ request);
 
-    Page<RS> list(int page, int size);
+    Page<RS> listAll(int page, int size);
 }

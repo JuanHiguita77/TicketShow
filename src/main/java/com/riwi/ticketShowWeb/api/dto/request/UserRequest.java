@@ -27,8 +27,8 @@ public class UserRequest {
 
     @Size(
         min = 8,
-        max = 255,
-        message = "The password must be between 8 and 255 characters"
+        max = 45,
+        message = "The password must be between 8 and 45 characters"
     )
     @NotBlank(message = "The password is required")
     @Schema(description =  "Password of the user")

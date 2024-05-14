@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.riwi.ticketShowWeb.api.dto.request.EventRequest;
 import com.riwi.ticketShowWeb.api.dto.response.EventResponse;
 import com.riwi.ticketShowWeb.infraestructure.abstract_services.IEventService;
-
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -30,8 +29,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
 
 
-
-
 @RestController
 @AllArgsConstructor
 @RequestMapping("/events")
@@ -41,6 +38,16 @@ public class EventController {
     @Autowired
     private final IEventService eventService;
 
+    @ApiResponse(
+        responseCode = "400",
+        description = "when page or size are not int numbers",
+        content = {
+            @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation = ErrorResponse.class)
+            )
+        }
+    )
     @Operation(
         summary = "List all events with pagination",
         description = "The page and page size must be sent to receive all events"
@@ -48,8 +55,8 @@ public class EventController {
     @GetMapping
     public ResponseEntity<Page<EventResponse>>listAll(
         @RequestParam(defaultValue = "1") int page,
-        @RequestParam(defaultValue = "2") int size) {
-        return ResponseEntity.ok(this.eventService.list(page-1, size));
+        @RequestParam(defaultValue = "4") int size) {
+        return ResponseEntity.ok(this.eventService.listAll(page - 1, size));
     }
 
     @ApiResponse(
@@ -71,31 +78,61 @@ public class EventController {
         return ResponseEntity.ok(this.eventService.findById(id));
     }
 
+    @ApiResponse(
+        responseCode = "400",
+        description = "when send title is invalid",
+        content = {
+            @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation = ErrorResponse.class)
+            )
+        }
+    )
     @Operation(
         summary = "bring an event by title",
         description = "you must send the title of the event to search"
     )
-    @GetMapping(path = "title/{title}")
-    public ResponseEntity<EventResponse> searchByTtile(@PathVariable String title) {
+    @GetMapping(path = "/title/{title}")
+    public ResponseEntity<EventResponse> searchByTitle(@PathVariable String title) {
         return ResponseEntity.ok(this.eventService.findByTitle(title));
     }
-
-  @Operation(
+    
+    @ApiResponse(
+        responseCode = "400",
+        description = "when send city is invalid",
+        content = {
+            @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation = ErrorResponse.class)
+            )
+        }
+    )
+    @Operation(
         summary = "bring an event by city",
         description = "you must send the city of the event to search"
     )
-    @GetMapping(path = "city/{city}")
+    @GetMapping(path = "/city/{city}")
     public ResponseEntity<EventResponse> searchByCity(@PathVariable String city) {
         return ResponseEntity.ok(this.eventService.findByCity(city));
     }
     
+    @ApiResponse(
+        responseCode = "400",
+        description = "when send info is invalid",
+        content = {
+            @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation = ErrorResponse.class)
+            )
+        }
+    )
     @Operation(
         summary = "Create a new event",
         description = "send  information for create a new event"
     )
-    @PostMapping()
+    @PostMapping(path = "/add")
     public ResponseEntity<EventResponse> save(@Validated @RequestBody EventRequest event) {
-        return ResponseEntity.ok(this.eventService.insert(event));
+        return ResponseEntity.ok(this.eventService.save(event));
     }
     
     @ApiResponse(
@@ -112,7 +149,7 @@ public class EventController {
         summary = "Delete an event by id",
         description = "send the event id to delete it"
     )
-    @DeleteMapping(path = "/{id}")
+    @DeleteMapping(path = "/delete/{id}")
     public ResponseEntity<Map<String, String>> delete(@PathVariable Long id){
         Map<String, String> response = new HashMap<>();
         response.put("message", "Event is deleted succesfully");
@@ -122,7 +159,7 @@ public class EventController {
 
     @ApiResponse(
         responseCode = "400",
-        description = "when id is invalid",
+        description = "when id or send event info are invalid",
         content = {
             @Content(
                 mediaType = "application/json",
@@ -134,10 +171,8 @@ public class EventController {
         summary = "Update an event",
         description = "send information for update an event"
     )
-    @PutMapping(path = "/{id}")
-    public ResponseEntity<EventResponse> update(@PathVariable Long id,@Validated @RequestBody EventRequest event) {
+    @PutMapping(path = "/update/{id}")
+    public ResponseEntity<EventResponse> update(@PathVariable Long id, @Validated @RequestBody EventRequest event) {
         return ResponseEntity.ok(this.eventService.update(id, event));
     }
-    
-    
 }

@@ -1,16 +1,14 @@
 package com.riwi.ticketShowWeb.api.dto.response;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Schema(description = "Response object for event information")
@@ -32,7 +30,7 @@ public class EventResponse {
     private String description;
 
     @Schema(description = "Date on which the event will take place")
-    private Date date;
+    private LocalDate date;
 
     @Schema(description = "URL of the event image")
     private String image_url;
@@ -43,6 +41,6 @@ public class EventResponse {
     @Schema(description = "Event capacity")
     private int capacity;
 
-    @Schema(description = "Event seating list")
+    @Schema(description = "Event seats list")
     private List<SeatResponse> seats;
 }
