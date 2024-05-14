@@ -93,10 +93,10 @@ public class EventController {
         description = "you must send the title of the event to search"
     )
     @GetMapping(path = "/title/{title}")
-    public ResponseEntity<EventResponse> searchByTtile(@PathVariable String title) {
+    public ResponseEntity<EventResponse> searchByTitle(@PathVariable String title) {
         return ResponseEntity.ok(this.eventService.findByTitle(title));
     }
-
+    
     @ApiResponse(
         responseCode = "400",
         description = "when send city is invalid",

@@ -56,12 +56,12 @@ public class EventService implements IEventService {
     
     @Override
     public Page<EventResponse> listAll(int page, int size) {
-        if (page<0) {
+        if (page < 0) {
             page = 0;
         }
-       PageRequest pagination =  PageRequest.of(page, size);
-       return this.eventRepository.findAll(pagination).map(this::entityToResponse);
-    }
+        PageRequest pagination =  PageRequest.of(page, size);    
+        return this.eventRepository.findAll(pagination).map(this::entityToResponse);
+    }   
     
     @Override
     public EventResponse findById(Long id) {
@@ -107,10 +107,13 @@ public class EventService implements IEventService {
             }
     
             // Crea los asientos solo si es un evento nuevo
-            for (int i = 1; i <= event.getCapacity(); i++) {
+            for (int i = 1; i <= event.getCapacity(); i++) 
+            {
                 Seat seat = new Seat();
+
                 seat.setAvailable(true);
                 seat.setEvent(event);
+                
                 event.getSeats().add(seat);
             }
         } 

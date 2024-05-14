@@ -8,5 +8,4 @@ public interface IEventService extends CrudService<EventRequest, EventResponse, 
     public EventResponse findByTitle(String title);
     public EventResponse findById(Long id);
     public EventResponse findByCity(String city);
-    
 }

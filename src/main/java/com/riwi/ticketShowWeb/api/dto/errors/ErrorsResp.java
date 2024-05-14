@@ -16,6 +16,5 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 public class ErrorsResp extends BaseErrorResponse 
 {
-    
     private List<Map<String, String>> errors;
 }
