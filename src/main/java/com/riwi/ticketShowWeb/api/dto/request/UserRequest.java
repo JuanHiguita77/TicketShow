@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Schema(description = "Request object for register information")
+@Schema(description = "Request object for user information")
 public class UserRequest {
 
     @Size(
