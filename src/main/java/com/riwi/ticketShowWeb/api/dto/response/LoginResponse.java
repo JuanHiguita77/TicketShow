@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Schema(description = "Response object for login information")
 public class LoginResponse {
 
-    @Schema(description =  "ID of the user")
+    @Schema(description =  "User login ID")
     private Long id;
 
     @Size(
@@ -24,7 +24,7 @@ public class LoginResponse {
         message = "The name must be between 1 and 45 characters"
     )
     @NotBlank(message = "The username  is required")
-    @Schema(description =  "Name of the user")
+    @Schema(description =  "User login name")
     private String name;
 
     @Size(
@@ -33,7 +33,7 @@ public class LoginResponse {
         message = "The password must be between 8 and 45 characters"
     )
     @NotBlank(message = "The password is required")
-    @Schema(description =  "Password of the user")
+    @Schema(description =  "User login password")
     private String password;
     
 }
