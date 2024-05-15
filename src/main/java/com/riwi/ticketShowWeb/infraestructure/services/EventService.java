@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.riwi.ticketShowWeb.api.dto.request.EventRequest;
@@ -33,7 +33,7 @@ public class EventService implements IEventService {
 
     @Autowired
     private SeatRepository seatRepository;
-    
+
     @Override
     public void delete(Long id) {
         Event event = this.find(id);
@@ -54,34 +54,24 @@ public class EventService implements IEventService {
         return this.entityToResponse(this.eventRepository.save(eventUpdate));
     }
     
-    @Override
-    public Page<EventResponse> listAll(int page, int size) {
-        if (page < 0) {
-            page = 0;
-        }
-        PageRequest pagination =  PageRequest.of(page, size);    
-        return this.eventRepository.findAll(pagination).map(this::entityToResponse);
-    }   
     
+    @Override
+    public Page<EventResponse> searchEvent(String category, String title, String city, Pageable pageable) {
+        return eventRepository.findByCategoryContainingAndTitleContainingAndCityContaining(category, title, city, pageable)
+        .map(this::entityToResponse);
+    }
+
+
     @Override
     public EventResponse findById(Long id) {
         return this.entityToResponse(this.find(id));
     }
-    
-    @Override
-    public EventResponse findByTitle(String title) {
-        return this.entityToResponse(this.eventRepository.findByTitle(title));
-    }
-    
-    @Override
-    public EventResponse findByCity(String city) {
-        return this.entityToResponse(this.eventRepository.findByCity(city));
-    }
-    
+
     private Event find(Long id){
         return this.eventRepository.findById(id).orElseThrow(()-> new BadRequestException("Event"));
     }
-
+    
+    
     private EventResponse entityToResponse(Event entity){
         EventResponse response = new EventResponse();
 
@@ -146,6 +136,7 @@ public class EventService implements IEventService {
     
         return event;
     }
-    
-    
+
 }
+
+
