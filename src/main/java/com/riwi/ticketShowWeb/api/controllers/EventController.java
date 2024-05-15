@@ -81,7 +81,6 @@ public class EventController {
     }
 
 
-
     @ApiResponse(responseCode = "400", description = "when id is invalid", content = {
             @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))
     })
@@ -92,22 +91,21 @@ public class EventController {
     }
 
 
-
-
     @ApiResponse(responseCode = "400", description = "when category, city and title is invalid", content = {
         @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))
 })
     @Operation(summary = "search an event by category, title, city", description = "send the event title, category or city to search by this")
-    @GetMapping(path = "/search/")
-    public Page<EventResponse> buscarEventosPorCategoriaTituloCiudad(
+    @GetMapping(path = "/search")
+    public Page<EventResponse> searchEvent(
             @RequestParam(value = "category", defaultValue = "", required = false) String category,
             @RequestParam(value = "title", defaultValue = "", required = false) String title,
             @RequestParam(value = "city", defaultValue = "", required = false) String city,
             @RequestParam(value = "page", defaultValue = "1") int page,
-            @RequestParam(value = "size", defaultValue = "10") int size) {
+            @RequestParam(value = "size", defaultValue = "10") int size) 
+    {
         Pageable pageable = PageRequest.of(page - 1, size);
-        return eventService.searchEvent(category, title, city, pageable);
 
+        return this.eventService.searchEvent(category, title, city, pageable);
     }
 
 

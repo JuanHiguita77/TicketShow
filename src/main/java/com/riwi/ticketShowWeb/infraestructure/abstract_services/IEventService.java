@@ -8,10 +8,9 @@ import com.riwi.ticketShowWeb.api.dto.request.EventRequest;
 import com.riwi.ticketShowWeb.api.dto.response.EventResponse;
 import com.riwi.ticketShowWeb.infraestructure.services.CrudService;
 
-public interface IEventService extends CrudService<EventRequest, EventResponse, Long>{
-    public EventResponse findById(Long id);  
+public interface IEventService extends CrudService<EventRequest, EventResponse, Long>
+{
     Page<EventResponse> searchEvent(String category, String title, String city, Pageable pageable);
-
 }
     
 
