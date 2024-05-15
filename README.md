@@ -11,6 +11,9 @@
 ## TABLERO TRELLO
 
  - https://trello.com/b/7OCyzovm/tareas-ts
+
+## Front-End De Ticketshow   
+- https://github.com/Harolin-23/Front-End-Ticket-Show
    
 ## PROPUESTA DEL PROYECTO
 
