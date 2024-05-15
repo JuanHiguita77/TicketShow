@@ -1,7 +1,6 @@
-package com.riwi.ticketShowWeb.api.dto.request;
+package com.riwi.ticketShowWeb.api.dto.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -13,16 +12,19 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Schema(description = "Request object for user information")
-public class UserRequest {
+@Schema(description = "Response object for login information")
+public class LoginResponse {
+
+    @Schema(description =  "User login ID")
+    private Long id;
 
     @Size(
         min = 1,
         max = 45,
         message = "The name must be between 1 and 45 characters"
     )
-    @NotBlank(message = "The name is required")
-    @Schema(description =  "Name of the user")
+    @NotBlank(message = "The username  is required")
+    @Schema(description =  "User login name")
     private String name;
 
     @Size(
@@ -31,11 +33,7 @@ public class UserRequest {
         message = "The password must be between 8 and 45 characters"
     )
     @NotBlank(message = "The password is required")
-    @Schema(description =  "Password of the user")
+    @Schema(description =  "User login password")
     private String password;
-
-    @Email(message = "Invalid email format")
-    @NotBlank(message = "The email is required")
-    @Schema(description =  "Email address of the user")
-    private String email;
+    
 }
