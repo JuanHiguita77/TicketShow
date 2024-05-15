@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Schema(description = "Response object for register information")
-public class RegisterRequest {
+public class RegisterResponse {
 
     @Schema(description =  "Registered user id")
     private Long id;
