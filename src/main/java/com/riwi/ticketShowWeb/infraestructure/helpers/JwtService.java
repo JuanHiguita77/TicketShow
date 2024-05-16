@@ -51,6 +51,7 @@ public class JwtService
 
         claims.put("id", user.getId());
         claims.put("role", user.getRole());//name() es para retornar el string como tal
+        claims.put("role", user.getRole().getName());//name() es para retornar el string como tal
         return getToken(claims, user);
     }
 
