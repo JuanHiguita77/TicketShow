@@ -54,7 +54,7 @@ public class ApplicationConfig
     //Servicio usado por security para cargar detalles del user durante la autentificacion
     public UserDetailsService userdetailsService()
     {
-        return username -> userRepository.findByName(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        return username -> userRepository.findByUserName(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
 }

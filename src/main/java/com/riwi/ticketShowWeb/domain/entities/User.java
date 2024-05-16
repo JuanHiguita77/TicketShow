@@ -56,12 +56,12 @@ public class User implements UserDetails{
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "rol_id", referencedColumnName = "id")
     @Schema(description = "Entity of the role the user is associated with")
-    private Rol rol;
+    private Rol role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
-        return List.of(new SimpleGrantedAuthority(this.rol.getName()));
+        return List.of(new SimpleGrantedAuthority(this.role.getName()));
     }
 
     @Override
