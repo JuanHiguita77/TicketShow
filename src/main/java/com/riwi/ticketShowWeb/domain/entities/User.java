@@ -54,9 +54,9 @@ public class User implements UserDetails{
     private Date deleteAt;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "rol_id", referencedColumnName = "id")
+    @JoinColumn(name = "role_id", referencedColumnName = "id")
     @Schema(description = "Entity of the role the user is associated with")
-    private Rol role;
+    private Role role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

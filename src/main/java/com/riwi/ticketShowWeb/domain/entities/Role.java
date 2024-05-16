@@ -15,13 +15,13 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@Entity(name = "rol")
+@Entity(name = "role")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Schema(description = "Entity representing a role")
-public class Rol {
+public class Role {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,7 +36,7 @@ public class Rol {
     @EqualsAndHashCode.Exclude
     @OneToOne(
         fetch = FetchType.EAGER,
-        mappedBy = "rol",
+        mappedBy = "role",
         orphanRemoval = false
     )
     @Schema(description =  "User associated with the role")
