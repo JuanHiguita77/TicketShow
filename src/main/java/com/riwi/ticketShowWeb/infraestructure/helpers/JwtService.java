@@ -50,7 +50,7 @@ public class JwtService
         Map<String, Object> claims = new HashMap<>();
 
         claims.put("id", user.getId());
-        claims.put("role", user.getRole().name());//name() es para retornar el string como tal
+        claims.put("role", user.getRol().getName());//name() es para retornar el string como tal
         return getToken(claims, user);
     }
 

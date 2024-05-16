@@ -12,6 +12,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.riwi.ticketShowWeb.domain.repositories.UserRepository;
+
 import lombok.AllArgsConstructor;
 
 @Configuration
@@ -52,7 +54,7 @@ public class ApplicationConfig
     //Servicio usado por security para cargar detalles del user durante la autentificacion
     public UserDetailsService userdetailsService()
     {
-        return username -> userRepository.findByUserName(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        return username -> userRepository.findByName(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
 }
