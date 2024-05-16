@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 
 import com.riwi.ticketShowWeb.api.dto.request.LoginRequest;
 import com.riwi.ticketShowWeb.api.dto.request.RegisterRequest;
+import com.riwi.ticketShowWeb.api.dto.response.AuthResponse;
 import com.riwi.ticketShowWeb.domain.entities.User;
+import com.riwi.ticketShowWeb.domain.repositories.UserRepository;
+import com.riwi.ticketShowWeb.infraestructure.abstract_services.IAuthService;
 import com.riwi.ticketShowWeb.infraestructure.helpers.JwtService;
 import com.riwi.ticketShowWeb.utils.exceptions.BadRequestException;
 
@@ -16,7 +19,7 @@ import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
-public class AuthService {
+public class AuthService implements IAuthService{
     
     @Autowired
     private final UserRepository userRepository;
@@ -41,9 +44,9 @@ public class AuthService {
             throw new BadRequestException("Invalid information");
         }
 
-        User user = this.findUser(request.getUserName());
+        User user = this.findByUserName(request.getUserName());
 
-        return AuthResp.builder()
+        return AuthResponse.builder()
                 .message("Correct Authentication")
                 .token(this.jwtService.getToken(user))
                 .build();
@@ -52,7 +55,7 @@ public class AuthService {
     @Override
     public AuthResponse register(RegisterRequest request) {
        
-        User exist = this.findUser(request.getUserName());
+        User exist = this.findByUserName(request.getUserName());
 
         if (exist != null) {
             throw new BadRequestException("User already exists");
@@ -62,13 +65,13 @@ public class AuthService {
         User user = User.builder()
                 .userName(request.getUserName())
                 .password(this.passwordEncoder.encode(request.getPassword()))
-                .role(Role.CLIENT)
+                .role(request.getRole())
                 .build();
 
         
         user = this.userRepository.save(user);
 
-        return AuthResp.builder()
+        return AuthResponse.builder()
                 .message("was registered correctly")
                 .token(this.jwtService.getToken(user))
                 .build();

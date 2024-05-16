@@ -1,5 +1,7 @@
 package com.riwi.ticketShowWeb.api.dto.request;
 
+import com.riwi.ticketShowWeb.domain.entities.Role;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -10,7 +12,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class RegisterRequest {
@@ -22,7 +23,7 @@ public class RegisterRequest {
     )
     @NotBlank(message = "The name is required")
     @Schema(description =  "Name of the user")
-    private String name;
+    private String userName;
 
     @Size(
         min = 8,
@@ -37,5 +38,9 @@ public class RegisterRequest {
     @NotBlank(message = "The email is required")
     @Schema(description =  "Email address of the user")
     private String email;
+
+    @NotBlank(message = "The user is required")
+    @Schema(description =  "Role of the user")
+    private Role role;
     
 }
