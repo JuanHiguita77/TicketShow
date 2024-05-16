@@ -1,6 +1,6 @@
 package com.riwi.ticketShowWeb.api.dto.response;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -30,7 +30,7 @@ public class EventResponse {
     private String description;
 
     @Schema(description = "Date on which the event will take place")
-    private LocalDate date;
+    private LocalDateTime date;
 
     @Schema(description = "URL of the event image")
     private String image_url;

@@ -1,6 +1,6 @@
 package com.riwi.ticketShowWeb.api.dto.request;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.DecimalMin;
@@ -59,7 +59,7 @@ public class EventRequest {
     @NotNull(message = "The date is required")
     @Future(message = "The date must be in the future")
     @Schema(description =  "Date on which the event will take place")
-    private LocalDate date;
+    private LocalDateTime date;
 
     @Size(
         min = 1,
