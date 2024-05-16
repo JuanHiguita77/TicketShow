@@ -12,6 +12,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.riwi.ticketShowWeb.infraestructure.helpers.JwtAuthenticationFilter;
+
 import lombok.AllArgsConstructor;
 
 @Configuration
@@ -22,7 +24,7 @@ public class SecurityConfig {
     @Autowired
     private final AuthenticationProvider authenticationProvider;
     @Autowired
-    private final JwtFilter jwtFilter;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     
     private final String[] PUBLIC_RESOURCES  = { "/services/public/get","/auth/**" };
@@ -39,8 +41,9 @@ public class SecurityConfig {
                 .sessionManagement(sessionManager -> 
                     sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtFilter,UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtAuthenticationFilter,UsernamePasswordAuthenticationFilter.class)
                 .build();
 
 
+}
 }

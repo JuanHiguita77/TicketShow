@@ -1,10 +1,16 @@
 package com.riwi.ticketShowWeb.infraestructure.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.riwi.ticketShowWeb.api.dto.request.LoginRequest;
 import com.riwi.ticketShowWeb.api.dto.request.RegisterRequest;
+import com.riwi.ticketShowWeb.domain.entities.User;
+import com.riwi.ticketShowWeb.infraestructure.helpers.JwtService;
+import com.riwi.ticketShowWeb.utils.exceptions.BadRequestException;
 
 import lombok.AllArgsConstructor;
 
@@ -25,7 +31,7 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
 
     @Override
-    public AuthRep login(LoginRequest request){
+    public AuthResponse login(LoginRequest request){
         try{
             
             authenticationManager.authenticate(
