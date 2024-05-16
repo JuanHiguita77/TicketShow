@@ -54,23 +54,15 @@ public class EventService implements IEventService {
         return this.entityToResponse(this.eventRepository.save(eventUpdate));
     }
     
-    
     @Override
     public Page<EventResponse> searchEvent(String category, String title, String city, Pageable pageable) {
-        return eventRepository.findByCategoryContainingAndTitleContainingAndCityContaining(category, title, city, pageable)
+        return this.eventRepository.findByCategoryContainingAndTitleContainingAndCityContaining(category, title, city, pageable)
         .map(this::entityToResponse);
-    }
-
-
-    @Override
-    public EventResponse findById(Long id) {
-        return this.entityToResponse(this.find(id));
     }
 
     private Event find(Long id){
         return this.eventRepository.findById(id).orElseThrow(()-> new BadRequestException("Event"));
     }
-    
     
     private EventResponse entityToResponse(Event entity){
         EventResponse response = new EventResponse();
