@@ -50,5 +50,5 @@ public class User {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "rol_id", referencedColumnName = "id")
     @Schema(description = "Entity of the role the user is associated with")
-    private Rol rol;
+    private Role role;
 }
