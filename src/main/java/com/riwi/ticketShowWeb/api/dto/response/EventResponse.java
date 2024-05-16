@@ -1,16 +1,14 @@
-package com.riwi.ticketShowWeb.api.response;
+package com.riwi.ticketShowWeb.api.dto.response;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Schema(description = "Response object for event information")
@@ -43,6 +41,6 @@ public class EventResponse {
     @Schema(description = "Event capacity")
     private int capacity;
 
-    @Schema(description = "Event seating list")
+    @Schema(description = "Event seats list")
     private List<SeatResponse> seats;
 }

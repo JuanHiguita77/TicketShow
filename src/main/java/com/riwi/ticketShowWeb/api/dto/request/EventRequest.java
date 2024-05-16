@@ -1,4 +1,4 @@
-package com.riwi.ticketShowWeb.api.request;
+package com.riwi.ticketShowWeb.api.dto.request;
 
 import java.time.LocalDateTime;
 
@@ -6,16 +6,15 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Schema(description = "Request object for event information")
@@ -79,7 +78,8 @@ public class EventRequest {
     @Schema(description =  "Price of the event")
     private double price;
 
-    @Max(value = 60, message = "Capacity must be less than or equal to 60")
+    @Max(value = 80, message = "Capacity must be less than or equal to 80")
+    @Min(value = 5, message = "Capacity must be highter than or equal to 5")
     @Schema(description = "Event capacity")
     @NotNull(message = "The capacity is required")
     private int capacity;

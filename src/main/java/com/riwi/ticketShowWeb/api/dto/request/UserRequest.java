@@ -1,4 +1,4 @@
-package com.riwi.ticketShowWeb.api.request;
+package com.riwi.ticketShowWeb.api.dto.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
@@ -19,7 +19,7 @@ public class UserRequest {
     @Size(
         min = 1,
         max = 45,
-        message = "The name must be between 1 and 100 characters"
+        message = "The name must be between 1 and 45 characters"
     )
     @NotBlank(message = "The name is required")
     @Schema(description =  "Name of the user")
