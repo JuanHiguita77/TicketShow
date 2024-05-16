@@ -77,6 +77,8 @@ public class AuthService implements IAuthService{
                 .build();
 
     }
+
+    
     
     private User findByUserName(String username){
         return this.userRepository.findByUserName(username)

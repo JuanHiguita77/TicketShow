@@ -9,7 +9,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
 import com.riwi.ticketShowWeb.infraestructure.helpers.JwtAuthenticationFilter;
 
 import lombok.AllArgsConstructor;
@@ -28,6 +27,7 @@ public class SecurityConfig {
 
     // Declarar Rutas publicas
     private final String[] PUBLIC_RESOURCES  = { "/services/public/get","/auth/**" };
+    private final String[] ADMIN_RESOURCES  = { "/login/admin" };
     
     /*
      * La anotación @Bean en Spring Boot indica que el objeto retornado por el
@@ -39,7 +39,8 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable()) //Desabilitar protección csrf -> Statelest
                 .authorizeHttpRequests(authRequest -> authRequest
-                    .requestMatchers(PUBLIC_RESOURCES).permitAll() //Configurar rutas publicas
+                .requestMatchers(ADMIN_RESOURCES).hasRole("ADMIN")    
+                .requestMatchers(PUBLIC_RESOURCES).permitAll() //Configurar rutas publicas
                     .anyRequest().authenticated() 
                 )
                 .sessionManagement(sessionManager -> 
