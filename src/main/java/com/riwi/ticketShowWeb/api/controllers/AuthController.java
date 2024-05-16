@@ -14,6 +14,7 @@ import com.riwi.ticketShowWeb.api.dto.request.RegisterRequest;
 import com.riwi.ticketShowWeb.api.dto.response.AuthResponse;
 import com.riwi.ticketShowWeb.infraestructure.abstract_services.IAuthService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -41,6 +42,7 @@ public class AuthController {
             )
         }
     )
+    @Operation(summary = "Register an Normal User", description = "Send all info and default role = 'USER'")
     @PostMapping(path = "/auth/login")
     public ResponseEntity<AuthResponse> login(
         @Validated @RequestBody LoginRequest request
@@ -60,6 +62,7 @@ public class AuthController {
             )
         }
     )
+    @Operation(summary = "Normal User Login", description = "Send all info for Login (userName, password)")
     @PostMapping(path = "/auth/register")
     public ResponseEntity<AuthResponse> register(
         @Validated @RequestBody RegisterRequest request
