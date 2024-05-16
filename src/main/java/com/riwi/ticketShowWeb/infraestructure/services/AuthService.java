@@ -65,10 +65,11 @@ public class AuthService implements IAuthService{
         User user = User.builder()
                 .userName(request.getUserName())
                 .password(this.passwordEncoder.encode(request.getPassword()))
+                .email(request.getEmail())
                 .role(request.getRole())
                 .build();
 
-        
+
         user = this.userRepository.save(user);
 
         return AuthResponse.builder()
