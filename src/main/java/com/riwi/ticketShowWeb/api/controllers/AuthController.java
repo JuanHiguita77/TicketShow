@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.riwi.ticketShowWeb.api.dto.request.LoginRequest;
 import com.riwi.ticketShowWeb.api.dto.request.RegisterRequest;
-import com.riwi.ticketShowWeb.api.dto.response.AuthResponse;
+import com.riwi.ticketShowWeb.api.dto.response.AuthResp;
 import com.riwi.ticketShowWeb.infraestructure.abstract_services.IAuthService;
 
 import io.swagger.v3.oas.annotations.media.Content;
@@ -42,7 +42,7 @@ public class AuthController {
         }
     )
     @PostMapping(path = "/auth/login")
-    public ResponseEntity<AuthResponse> login(
+    public ResponseEntity<AuthResp> login(
         @Validated @RequestBody LoginRequest request
     ) {
         return ResponseEntity.ok(this.authService.login(request));
@@ -60,7 +60,7 @@ public class AuthController {
         }
     )
     @PostMapping(path = "/auth/register")
-    public ResponseEntity<AuthResponse> register(
+    public ResponseEntity<AuthResp> register(
         @Validated @RequestBody RegisterRequest request
     ) {
 

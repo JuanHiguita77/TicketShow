@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.riwi.ticketShowWeb.api.dto.request.LoginRequest;
 import com.riwi.ticketShowWeb.api.dto.request.RegisterRequest;
-import com.riwi.ticketShowWeb.api.dto.response.AuthResponse;
+import com.riwi.ticketShowWeb.api.dto.response.AuthResp;
 import com.riwi.ticketShowWeb.domain.entities.User;
 import com.riwi.ticketShowWeb.domain.repositories.UserRepository;
 import com.riwi.ticketShowWeb.infraestructure.abstract_services.IAuthService;
@@ -35,7 +35,7 @@ public class AuthService implements IAuthService{
     private final AuthenticationManager authenticationManager;
 
     @Override
-    public AuthResponse login(LoginRequest request){
+    public AuthResp login(LoginRequest request){
         try{
             
             authenticationManager.authenticate(
@@ -47,14 +47,14 @@ public class AuthService implements IAuthService{
 
         User user = this.findByUserName(request.getUserName());
 
-        return AuthResponse.builder()
+        return AuthResp.builder()
                 .message("Correct Authentication")
                 .token(this.jwtService.getToken(user))
                 .build();
     }
 
     @Override
-    public AuthResponse register(RegisterRequest request) {
+    public AuthResp register(RegisterRequest request) {
        
         User exist = this.findByUserName(request.getUserName());
 
@@ -66,13 +66,13 @@ public class AuthService implements IAuthService{
         User user = User.builder()
                 .userName(request.getUserName())
                 .password(this.passwordEncoder.encode(request.getPassword()))
-                .role(request.getRole())
+                .role(request.getRole_id())
                 .build();
 
         
         user = this.userRepository.save(user);
 
-        return AuthResponse.builder()
+        return AuthResp.builder()
                 .message("was registered correctly")
                 .token(this.jwtService.getToken(user))
                 .build();

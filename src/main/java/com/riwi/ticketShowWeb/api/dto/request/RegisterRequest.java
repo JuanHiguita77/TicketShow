@@ -42,6 +42,6 @@ public class RegisterRequest {
 
     @NotBlank(message = "The user is required")
     @Schema(description =  "Role of the user")
-    private Role role;
+    private Long role_id;
     
 }

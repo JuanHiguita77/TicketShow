@@ -4,8 +4,6 @@ package com.riwi.ticketShowWeb.domain.repositories;
 
 import java.util.Optional;
 
-import javax.swing.text.html.Option;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

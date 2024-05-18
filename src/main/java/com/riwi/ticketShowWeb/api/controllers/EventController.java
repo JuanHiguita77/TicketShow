@@ -113,7 +113,7 @@ public class EventController {
         @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))
     })
     @Operation(summary = "Send Email", description = "Send an email when the user complete the ticket buy, use in the buy button, send /idEvent and Queryparam idUser")
-    @PostMapping("/public/sendEmail/{idEvent}")
+    @PostMapping("/sendEmail/{idEvent}")
     public void sendMail(@PathVariable Long idEvent, @RequestParam Long idUser) 
     {
         this.eventService.sendEmail(idEvent, idUser);

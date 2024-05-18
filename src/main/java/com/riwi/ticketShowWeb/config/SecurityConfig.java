@@ -26,15 +26,22 @@ public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     // Declarar Rutas publicas
-    private final String[] PUBLIC_RESOURCES  = { "/events/public/search", 
+    private final String[] PUBLIC_RESOURCES  = { "/search",
+    "/sendEmail", 
     "/auth/**", 
-    "/swagger-ui/index.html", "/v2/api-docs",
+    }; //Rutas publicas
+
+    private final String[] ADMIN_RESOURCES  = { 
+    "/add",
+    "/delete",
+    "/admin/**",
+    "/swagger-ui/index.html", 
+    "/v2/api-docs",
     "/v3/api-docs/**",
     "/swagger-resources/**",
     "/swagger-ui.html",
     "/swagger-ui/**",
-    "/webjars/**" }; //Rutas publicas
-    private final String[] ADMIN_RESOURCES  = { "/login/admin" };
+    "/webjars/**" };
     
     /*
      * La anotación @Bean en Spring Boot indica que el objeto retornado por el
