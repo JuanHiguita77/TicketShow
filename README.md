@@ -52,6 +52,10 @@ Somos una web que se especializará en la venta de tickets online para shows de 
 
 ![Ticketshow StructureComponent](Docs/diagramas/componentStructure.jpg)
 
-## DIAGRAMA UML DE CLASES
+## DIAGRAMA UML DE CLASES 
 
 ![Ticketshow UMLClases](Docs/diagramas/UMLClasesFull.png)
+
+# SpringBoot Security
+
+![Ticketshow UMLClases](Docs/diagramas/SpringSecurity.png)
