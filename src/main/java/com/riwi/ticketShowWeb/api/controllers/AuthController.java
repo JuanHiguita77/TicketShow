@@ -45,7 +45,6 @@ public class AuthController {
     public ResponseEntity<AuthResponse> login(
         @Validated @RequestBody LoginRequest request
     ) {
-
         return ResponseEntity.ok(this.authService.login(request));
     }
 

@@ -26,7 +26,14 @@ public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     // Declarar Rutas publicas
-    private final String[] PUBLIC_RESOURCES  = { "/services/public/get","/auth/**" };
+    private final String[] PUBLIC_RESOURCES  = { "/events/public/search", 
+    "/auth/**", 
+    "/swagger-ui/index.html", "/v2/api-docs",
+    "/v3/api-docs/**",
+    "/swagger-resources/**",
+    "/swagger-ui.html",
+    "/swagger-ui/**",
+    "/webjars/**" }; //Rutas publicas
     private final String[] ADMIN_RESOURCES  = { "/login/admin" };
     
     /*
