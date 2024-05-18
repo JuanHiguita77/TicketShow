@@ -3,6 +3,7 @@ package com.riwi.ticketShowWeb.infraestructure.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -78,11 +79,9 @@ public class AuthService implements IAuthService{
 
     }
 
-    
-    
-    private User findByUserName(String username){
-        return this.userRepository.findByUserName(username)
-                .orElse(null);
+    private User findByUserName(String username)
+    {
+        return this.userRepository.findByUserName(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));         
     }
 
 }

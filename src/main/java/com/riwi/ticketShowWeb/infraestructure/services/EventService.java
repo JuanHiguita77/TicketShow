@@ -2,6 +2,8 @@ package com.riwi.ticketShowWeb.infraestructure.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
@@ -15,11 +17,14 @@ import com.riwi.ticketShowWeb.api.dto.response.EventResponse;
 import com.riwi.ticketShowWeb.api.dto.response.SeatResponse;
 import com.riwi.ticketShowWeb.domain.entities.Event;
 import com.riwi.ticketShowWeb.domain.entities.Seat;
+import com.riwi.ticketShowWeb.domain.entities.User;
 import com.riwi.ticketShowWeb.domain.repositories.EventRepository;
 import com.riwi.ticketShowWeb.infraestructure.abstract_services.IEventService;
+import com.riwi.ticketShowWeb.infraestructure.helpers.EmailHelper;
 import com.riwi.ticketShowWeb.utils.exceptions.BadRequestException;
 
 import com.riwi.ticketShowWeb.domain.repositories.SeatRepository;
+import com.riwi.ticketShowWeb.domain.repositories.UserRepository;
 
 import lombok.AllArgsConstructor;
 
@@ -32,7 +37,13 @@ public class EventService implements IEventService {
     private final EventRepository eventRepository;
 
     @Autowired
+    private final UserRepository userRepository;
+
+    @Autowired
     private SeatRepository seatRepository;
+
+    @Autowired
+    private final EmailHelper emailHelper;
 
     @Override
     public void delete(Long id) {
@@ -60,8 +71,32 @@ public class EventService implements IEventService {
         .map(this::entityToResponse);
     }
 
+    @Override
+    public void sendEmail(Long idEvent, Long idUser)
+    {
+        Event event = this.find(idEvent);
+
+        User user = this.findUser(idUser);
+
+        if (Objects.nonNull(user.getEmail())) 
+        {
+            this.emailHelper.sendMail(event.getTitle(), 
+                                    event.getCity(), 
+                                    user.getUsername(), 
+                                    event.getDate(), 
+                                    event.getDescription(), 
+                                    event.getPrice(),
+                                    event.getCity());    
+        }
+    }
+
     private Event find(Long id){
         return this.eventRepository.findById(id).orElseThrow(()-> new BadRequestException("Event"));
+    }
+
+    private User findUser(Long id)
+    {
+        return this.userRepository.findById(id).orElseThrow(()-> new BadRequestException("User"));
     }
     
     private EventResponse entityToResponse(Event entity){

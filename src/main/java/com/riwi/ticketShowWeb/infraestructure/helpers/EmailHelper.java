@@ -1,58 +1,71 @@
 package com.riwi.ticketShowWeb.infraestructure.helpers;
 
-
-
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.sql.Date;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.stream.Collectors;
-import org.springframework.mail.stereotype.Component;
+
+import org.springframework.mail.javamail.JavaMailSender;
+
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 
-import io.swagger.v3.oas.models.Paths;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
 import lombok.AllArgsConstructor;
 
 @Component
+@AllArgsConstructor
 public class EmailHelper {
-    private final JavaMailSender mailsender;
 
-    public void sendMail(String destiny, String userName, LocalDateTime date){
-        MimeMessage message = mailsender.createMimeMessage();
+    private final JavaMailSender mailSender;
 
-        String dateAppointment = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String htmlContent = this.readHTMLTemplate(name, date);
+    public void sendMail(String title, String city, String userName, LocalDateTime date, String description, double price, String destiny)
+    {
+        MimeMessage message = mailSender.createMimeMessage();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        String dateAppointment = date.format(formatter);
+
+        String htmlContent = readHTMLTemplate(userName, title, city, description, dateAppointment, price);
 
         try{
-            message.setFrom(new InternetAddress("Correo del que se le envia va aca"));
-            message.setSubject("Informacion acerca de su evento");
+            message.setFrom(new InternetAddress("juanferhiguita65@gmail.com"));
+            message.setSubject("Event reserved successfully");
 
-            message.setRecipients(MimeMessage.RecipientType.TO,destiny);
-            message.setContent(htmlContent.MediaType.TEXT_HTML_VALUE);
+            message.setRecipients(MimeMessage.RecipientType.TO, destiny);
 
-            mailsender.send(message);
-            System.out.println("Email send");
+            message.setContent(htmlContent,MediaType.TEXT_HTML_VALUE);
+
+            mailSender.send(message);
+            System.out.println("Email sended");
+
         }catch(Exception e){
             System.out.println("Error no se pudo enviar el email "+ e.getMessage());
         }
 
-        
     }
 
-    private String readHTMLTemplate(String userName, String title, String city, String category, String description, Double price ){
+    private String readHTMLTemplate(String userName, String title, String city, String description, String date, double price)
+    {
         final Path path = Paths.get("src/main/resources/emails/email_template.html");
         
         try (var lines = Files.lines(path)){
             var html = lines.collect(Collectors.joining());
 
-            return html.replace("{userName}", userName).replace("{title}", title).replace("{city}", description).replace("{category}", category)
-            .replace("{description}", description).replace("{price}", price);
-        } catch (Exception e) {
-            System.out.println("No se pudo leer el html");
+            return html.replace("{userName}", userName)
+                        .replace("{title}", title)
+                        .replace("{city}", description)
+                        .replace("{description}", description)
+                        .replace("{price}", String.valueOf(price));
+        } 
+        catch (Exception e) 
+        {
+            System.out.print("Email Html template cant be read...");
             throw new RuntimeException();
         }
-
-        return 
     }
 }

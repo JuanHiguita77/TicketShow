@@ -11,6 +11,8 @@ import com.riwi.ticketShowWeb.infraestructure.services.CrudService;
 public interface IEventService extends CrudService<EventRequest, EventResponse, Long>
 {
     Page<EventResponse> searchEvent(String category, String title, String city, Pageable pageable);
+
+    void sendEmail(Long idEvent, Long idUser);
 }
     
 
