@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.riwi.ticketShowWeb.api.dto.request.EventRequest;
 import com.riwi.ticketShowWeb.api.dto.response.EventResponse;
+import com.riwi.ticketShowWeb.domain.entities.Event;
 import com.riwi.ticketShowWeb.infraestructure.abstract_services.IEventService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -85,7 +86,7 @@ public class EventController {
             @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))
     })
     @Operation(summary = "Update an event", description = "send information for update an event")
-    @PutMapping(path = "/{id}")
+    @PutMapping(path = "/update/{id}")
     public ResponseEntity<EventResponse> update(@PathVariable Long id, @Validated @RequestBody EventRequest event) {
         return ResponseEntity.ok(this.eventService.update(id, event));
     }
@@ -118,5 +119,12 @@ public class EventController {
     {
         this.eventService.sendEmail(idEvent, idUser);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<EventResponse> findById(@PathVariable Long id) 
+    { 
+        return ResponseEntity.ok(this.eventService.findById(id));
+    }
+    
     
 }

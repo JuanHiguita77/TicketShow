@@ -89,6 +89,12 @@ public class EventService implements IEventService {
         }
     }
 
+    @Override
+    public EventResponse findById(Long id)
+    {
+        return this.entityToResponse(this.find(id));
+    }
+    
     private Event find(Long id){
         return this.eventRepository.findById(id).orElseThrow(()-> new BadRequestException("Event"));
     }
@@ -107,6 +113,7 @@ public class EventService implements IEventService {
         .collect(Collectors.toList()));
         return response;
     }
+
 
     private SeatResponse seatToResponse(Seat entity){
         SeatResponse response = new SeatResponse();

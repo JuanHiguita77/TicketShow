@@ -41,7 +41,7 @@ public class User implements UserDetails{
     @Schema(description =  "Name of the user")
     private String userName;
 
-    @Column(length = 45, nullable = false)
+    @Column(length = 255, nullable = false)
     @Schema(description =  "Password of the user")
     private String password;
 
@@ -53,7 +53,7 @@ public class User implements UserDetails{
     @Schema(description =  "Date when the user was deleted")
     private Date deleteAt;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     @Schema(description = "Entity of the role the user is associated with")
     private Role role;

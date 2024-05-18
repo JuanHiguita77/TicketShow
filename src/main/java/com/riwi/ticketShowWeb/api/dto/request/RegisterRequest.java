@@ -5,6 +5,7 @@ import com.riwi.ticketShowWeb.domain.entities.Role;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,8 +41,8 @@ public class RegisterRequest {
     @Schema(description =  "Email address of the user")
     private String email;
 
-    @NotBlank(message = "The user is required")
-    @Schema(description =  "Role of the user")
+    @NotNull(message = "The Role id is required")
+    @Schema(description =  "Role of the new user")
     private Long role_id;
     
 }

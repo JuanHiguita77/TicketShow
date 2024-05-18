@@ -21,7 +21,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping
+@RequestMapping("/auth")
 @AllArgsConstructor
 @Tag(name = "Authentication", description = "Endpoints for user authentication and registration")
 public class AuthController {
@@ -41,10 +41,11 @@ public class AuthController {
             )
         }
     )
-    @PostMapping(path = "/auth/login")
+    @PostMapping(path = "/login")
     public ResponseEntity<AuthResp> login(
         @Validated @RequestBody LoginRequest request
-    ) {
+    ) 
+    {
         return ResponseEntity.ok(this.authService.login(request));
     }
 
@@ -59,11 +60,11 @@ public class AuthController {
             )
         }
     )
-    @PostMapping(path = "/auth/register")
+    @PostMapping(path = "/register")
     public ResponseEntity<AuthResp> register(
         @Validated @RequestBody RegisterRequest request
-    ) {
-
+    ) 
+    {
         return ResponseEntity.ok(this.authService.register(request));
     }
     

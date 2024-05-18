@@ -14,6 +14,4 @@ import com.riwi.ticketShowWeb.domain.entities.Event;
 public interface EventRepository extends JpaRepository<Event, Long> 
 {
     Page<Event> findByCategoryContainingAndTitleContainingAndCityContaining(String category, String title, String city, Pageable pageable);
-
-    Optional<Event> findById(Long id);
 }

@@ -28,7 +28,10 @@ public class SecurityConfig {
     // Declarar Rutas publicas
     private final String[] PUBLIC_RESOURCES  = { "/search",
     "/sendEmail", 
-    "/auth/**", 
+    "/auth/register",
+    "/auth/login",
+    "/auth/**",
+    "/error"
     }; //Rutas publicas
 
     private final String[] ADMIN_RESOURCES  = { 
@@ -53,10 +56,9 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable()) //Desabilitar protección csrf -> Statelest
                 .authorizeHttpRequests(authRequest -> authRequest
-                .requestMatchers(ADMIN_RESOURCES).hasRole("ADMIN")    
-                .requestMatchers(PUBLIC_RESOURCES).permitAll() //Configurar rutas publicas
-                    .anyRequest().authenticated() 
-                )
+                .requestMatchers(PUBLIC_RESOURCES).permitAll() 
+                .requestMatchers(ADMIN_RESOURCES).hasAuthority("ADMIN").anyRequest().authenticated()
+                )//Configurar rutas publicas
                 .sessionManagement(sessionManager -> 
                     sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider) //Agregarmos el proveedor de autenticación 

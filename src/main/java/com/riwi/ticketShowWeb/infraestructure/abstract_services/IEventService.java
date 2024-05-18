@@ -13,6 +13,8 @@ public interface IEventService extends CrudService<EventRequest, EventResponse, 
     Page<EventResponse> searchEvent(String category, String title, String city, Pageable pageable);
 
     void sendEmail(Long idEvent, Long idUser);
+
+    EventResponse findById(Long id);
 }
     
 
