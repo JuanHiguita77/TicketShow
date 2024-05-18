@@ -50,11 +50,11 @@ Somos una web que se especializará en la venta de tickets online para shows de 
 
 ## ESTRUCTURA DE COMPONENTES
 
-![Ticketshow StructureComponent](Docs/diagramas/componentStructure.jpg)
+![Ticketshow StructureComponent](Docs/diagramas/componentStructureModel.jpg)
 
 ## DIAGRAMA UML DE CLASES 
 
-![Ticketshow UMLClases](Docs/diagramas/UMLClasesFull.png)
+![Ticketshow UMLClases](Docs/diagramas/UMLClasesMain.png)
 
 # SpringBoot Security
 
