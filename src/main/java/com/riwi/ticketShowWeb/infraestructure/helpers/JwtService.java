@@ -21,7 +21,7 @@ import io.jsonwebtoken.security.Keys;
 public class JwtService 
 {
     //Crear clave o firma
-    private final String SECRET_KEY = "c3VwZXJtZWdhY2xhdmUgdHJ5aGFyZCwgc3VwZXJtZWdhY2xhdmUgdHJ5aGFyZCwgc3VwZXJtZWdhY2xhdmUgdHJ5aGFyZA==";//generada de una web en base 64, ya que se pide asi para el metodo
+    private final String SECRET_KEY = "Y29udHJhc2XDsWEgdWx0cmEgc2VjcmV0YSwgY29udHJhc2XDsWEgdWx0cmEgc2VjcmV0YSwgY29udHJhc2XDsWEgdWx0cmEgc2VjcmV0YQ==";//generada de una web en base 64, ya que se pide asi para el metodo
 
     //Metodo para encriptar clave secreta
     public SecretKey getKey()

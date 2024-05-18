@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.riwi.ticketShowWeb.api.dto.request.LoginRequest;
 import com.riwi.ticketShowWeb.api.dto.request.RegisterRequest;
-import com.riwi.ticketShowWeb.api.dto.response.AuthResponse;
+import com.riwi.ticketShowWeb.api.dto.response.AuthResp;
 import com.riwi.ticketShowWeb.infraestructure.abstract_services.IAuthService;
 
 import io.swagger.v3.oas.annotations.media.Content;
@@ -21,7 +21,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping
+@RequestMapping("/auth")
 @AllArgsConstructor
 @Tag(name = "Authentication", description = "Endpoints for user authentication and registration")
 public class AuthController {
@@ -41,11 +41,11 @@ public class AuthController {
             )
         }
     )
-    @PostMapping(path = "/auth/login")
-    public ResponseEntity<AuthResponse> login(
+    @PostMapping(path = "/login")
+    public ResponseEntity<AuthResp> login(
         @Validated @RequestBody LoginRequest request
-    ) {
-
+    ) 
+    {
         return ResponseEntity.ok(this.authService.login(request));
     }
 
@@ -60,11 +60,11 @@ public class AuthController {
             )
         }
     )
-    @PostMapping(path = "/auth/register")
-    public ResponseEntity<AuthResponse> register(
+    @PostMapping(path = "/register")
+    public ResponseEntity<AuthResp> register(
         @Validated @RequestBody RegisterRequest request
-    ) {
-
+    ) 
+    {
         return ResponseEntity.ok(this.authService.register(request));
     }
     

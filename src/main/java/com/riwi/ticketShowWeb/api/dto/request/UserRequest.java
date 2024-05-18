@@ -38,4 +38,8 @@ public class UserRequest {
     @NotBlank(message = "The email is required")
     @Schema(description =  "Email address of the user")
     private String email;
+
+    @NotBlank(message = "The Id role is required")
+    @Schema(description =  "Role for type User")
+    private Long role_id;
 }

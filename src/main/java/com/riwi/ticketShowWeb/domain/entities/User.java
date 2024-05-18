@@ -39,9 +39,9 @@ public class User implements UserDetails{
 
     @Column(length = 45, nullable = false)
     @Schema(description =  "Name of the user")
-    private String name;
+    private String userName;
 
-    @Column(length = 45, nullable = false)
+    @Column(length = 255, nullable = false)
     @Schema(description =  "Password of the user")
     private String password;
 
@@ -53,7 +53,7 @@ public class User implements UserDetails{
     @Schema(description =  "Date when the user was deleted")
     private Date deleteAt;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     @Schema(description = "Entity of the role the user is associated with")
     private Role role;
@@ -67,7 +67,7 @@ public class User implements UserDetails{
     @Override
     public String getUsername() {
 
-        return this.name;
+        return this.userName;
     }
 
     @Override

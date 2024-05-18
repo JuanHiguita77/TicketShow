@@ -9,7 +9,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
 import com.riwi.ticketShowWeb.infraestructure.helpers.JwtAuthenticationFilter;
 
 import lombok.AllArgsConstructor;
@@ -27,7 +26,25 @@ public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     // Declarar Rutas publicas
-    private final String[] PUBLIC_RESOURCES  = { "/services/public/get","/auth/**" };
+    private final String[] PUBLIC_RESOURCES  = { "/search",
+    "/sendEmail", 
+    "/auth/register",
+    "/auth/login",
+    "/auth/**",
+    "/error"
+    }; //Rutas publicas
+
+    private final String[] ADMIN_RESOURCES  = { 
+    "/add",
+    "/delete",
+    "/admin/**",
+    "/swagger-ui/index.html", 
+    "/v2/api-docs",
+    "/v3/api-docs/**",
+    "/swagger-resources/**",
+    "/swagger-ui.html",
+    "/swagger-ui/**",
+    "/webjars/**" };
     
     /*
      * La anotación @Bean en Spring Boot indica que el objeto retornado por el
@@ -39,9 +56,9 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable()) //Desabilitar protección csrf -> Statelest
                 .authorizeHttpRequests(authRequest -> authRequest
-                    .requestMatchers(PUBLIC_RESOURCES).permitAll() //Configurar rutas publicas
-                    .anyRequest().authenticated() 
-                )
+                .requestMatchers(PUBLIC_RESOURCES).permitAll() 
+                .requestMatchers(ADMIN_RESOURCES).hasAuthority("ADMIN").anyRequest().authenticated()
+                )//Configurar rutas publicas
                 .sessionManagement(sessionManager -> 
                     sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider) //Agregarmos el proveedor de autenticación 

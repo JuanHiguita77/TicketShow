@@ -22,7 +22,7 @@ public class LoginRequest {
     )
     @NotBlank(message = "The username  is required")
     @Schema(description =  "Name of the user")
-    private String name;
+    private String userName;
 
     @Size(
         min = 8,
