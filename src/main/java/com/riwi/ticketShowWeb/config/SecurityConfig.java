@@ -30,7 +30,9 @@ public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     // Declarar Rutas publicas
-    private final String[] PUBLIC_RESOURCES  = { "/events/auth/search",
+    private final String[] PUBLIC_RESOURCES  = { 
+    "/auth/**",  
+    "/events/auth/search",
     "/events/sendEmail", 
     "/events/auth/**",
     "/error/**",
@@ -48,6 +50,8 @@ public class SecurityConfig {
 
 
     "http://localhost:5173/",
+    "/seat/selectSeat/",
+    "/seat",
     "/events/**",
     "/api/v1/**",
     "/add",
