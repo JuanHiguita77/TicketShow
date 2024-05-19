@@ -26,11 +26,9 @@ public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     // Declarar Rutas publicas
-    private final String[] PUBLIC_RESOURCES  = { "/search",
-    "/sendEmail", 
-    "/auth/register",
-    "/auth/login",
-    "/auth/**",
+    private final String[] PUBLIC_RESOURCES  = { "/events/auth/search",
+    "/events/sendEmail", 
+    "/events/auth/**",
     "/error"
     }; //Rutas publicas
 
