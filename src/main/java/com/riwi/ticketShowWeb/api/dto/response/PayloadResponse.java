@@ -21,4 +21,7 @@ public class PayloadResponse
 
     @Schema(description =  "Role of user in token")
     private String role;
+
+    @Schema(description =  "Time to token expire")
+    private Long exp; 
 }

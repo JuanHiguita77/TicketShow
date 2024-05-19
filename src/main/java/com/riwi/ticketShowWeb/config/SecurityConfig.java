@@ -35,6 +35,8 @@ public class SecurityConfig {
     "/events/auth/**",
     "/error/**",
     "/error",
+    "/auth/error/**",
+    "/auth/error",
     "/auth/payload",
     "/swagger-ui/index.html", 
     "/v2/api-docs",
