@@ -51,7 +51,8 @@ public class SecurityConfig {
 
     "http://localhost:5173/",
     "/seat/selectSeat/",
-    "/seat",
+    "/seat/selectSeat/**",
+    "/seat/**",
     "/events/**",
     "/api/v1/**",
     "/add",
@@ -74,7 +75,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable()) //Desabilitar protección csrf -> Statelest
                 .authorizeHttpRequests(authRequest -> authRequest
                 .requestMatchers(PUBLIC_RESOURCES).permitAll() 
-                .requestMatchers(ADMIN_RESOURCES).hasAuthority("ADMIN").anyRequest().authenticated()
+                .requestMatchers(ADMIN_RESOURCES).hasAuthority("admin").anyRequest().authenticated()
                 )//Configurar rutas publicas
                 .sessionManagement(sessionManager -> 
                     sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
