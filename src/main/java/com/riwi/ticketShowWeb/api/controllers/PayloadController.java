@@ -44,7 +44,7 @@ public class PayloadController {
     })
     @Operation(summary = "Send Token to verify", description = "Send a token to verify")
     @PostMapping(path = "/auth/payload")
-    public ResponseEntity<PayloadResponse> obtenerPayloadToken(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader) 
+    public ResponseEntity<PayloadResponse> payloadObtainer(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader) 
     {
         // Verificar si el encabezado de autorización no está vacío y comienza con "Bearer "
         if (StringUtils.hasLength(authorizationHeader) && authorizationHeader.startsWith("Bearer ")) 
