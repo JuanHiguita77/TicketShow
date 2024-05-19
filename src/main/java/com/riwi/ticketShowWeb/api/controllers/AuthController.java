@@ -90,7 +90,7 @@ public class AuthController {
         @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))
     })
     @Operation(summary = "Send Token to verify", description = "Send a token to verify")
-    @PostMapping(path = "/admin/payload")
+    @PostMapping(path = "/auth/payload")
     public ResponseEntity<PayloadResponse> obtenerPayloadToken(@RequestBody String token) 
     {
         // Verificar si el token es válido

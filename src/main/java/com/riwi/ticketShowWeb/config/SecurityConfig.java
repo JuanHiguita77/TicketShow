@@ -33,7 +33,8 @@ public class SecurityConfig {
     "/events/sendEmail", 
     "/events/auth/**",
     "/error/**",
-    "/error"
+    "/error",
+    "/auth/payload"
     }; //Rutas publicas
 
     private final String[] ADMIN_RESOURCES  = { 
