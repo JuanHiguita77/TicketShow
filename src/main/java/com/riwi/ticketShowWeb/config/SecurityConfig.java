@@ -34,20 +34,21 @@ public class SecurityConfig {
     "/events/auth/**",
     "/error/**",
     "/error",
-    "/auth/payload"
-    }; //Rutas publicas
-
-    private final String[] ADMIN_RESOURCES  = { 
-    "/add",
-    "/delete",
-    "/admin/**",
+    "/auth/payload",
     "/swagger-ui/index.html", 
     "/v2/api-docs",
     "/v3/api-docs/**",
     "/swagger-resources/**",
     "/swagger-ui.html",
     "/swagger-ui/**",
-    "/webjars/**" };
+    "/webjars/**"
+    }; //Rutas publicas
+
+    private final String[] ADMIN_RESOURCES  = { 
+    "/add",
+    "/delete",
+    "/admin/**"
+     };
     
     /*
      * La anotación @Bean en Spring Boot indica que el objeto retornado por el
