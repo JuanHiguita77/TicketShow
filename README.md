@@ -12,8 +12,13 @@
 
  - https://trello.com/b/7OCyzovm/tareas-ts
 
-## Front-End De Ticketshow   
+## Front-End   
+
 - https://github.com/Harolin-23/Front-End-Ticket-Show
+
+## Micro Service NestJS
+
+- https://github.com/FelipeForero21/ticket_show_nestjs
    
 ## PROPUESTA DEL PROYECTO
 
