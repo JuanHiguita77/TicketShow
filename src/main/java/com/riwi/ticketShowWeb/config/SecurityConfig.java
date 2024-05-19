@@ -29,6 +29,7 @@ public class SecurityConfig {
     private final String[] PUBLIC_RESOURCES  = { "/events/auth/search",
     "/events/sendEmail", 
     "/events/auth/**",
+    "/error/**",
     "/error"
     }; //Rutas publicas
 

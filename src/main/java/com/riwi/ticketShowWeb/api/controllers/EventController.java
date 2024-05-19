@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.riwi.ticketShowWeb.api.dto.request.EventRequest;
 import com.riwi.ticketShowWeb.api.dto.response.EventResponse;
-import com.riwi.ticketShowWeb.domain.entities.Event;
 import com.riwi.ticketShowWeb.infraestructure.abstract_services.IEventService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
