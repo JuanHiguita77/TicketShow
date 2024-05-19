@@ -11,6 +11,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 import com.riwi.ticketShowWeb.infraestructure.helpers.JwtAuthenticationFilter;
 
@@ -72,14 +73,14 @@ public class SecurityConfig {
 
     
     @Bean
-    public UrlBasedCorsConfigurationSource corsConfigurationSource() {
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOriginPattern("*"); // Deberías especificar dominios específicos en producción
+        config.addAllowedOrigin("http://localhost:5174");
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
-        return source;
+        return new CorsFilter(source);
     }
 }
