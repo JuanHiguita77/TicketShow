@@ -52,7 +52,7 @@ public class Event {
     @Schema(description = "Date and time of the event")
     private LocalDateTime date;
 
-    @Column(length = 255, nullable = false)
+    @Column(length = 800, nullable = false)
     @Schema(description = "URL of the event image")
     private String image_url;
 

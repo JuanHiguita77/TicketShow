@@ -63,7 +63,7 @@ public class EventRequest {
 
     @Size(
         min = 1,
-        max = 255,
+        max = 800,
         message = "The image is required"
     )
     @NotBlank(message = "The image is required")
