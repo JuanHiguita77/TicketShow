@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.riwi.ticketShowWeb.api.dto.request.EventRequest;
 import com.riwi.ticketShowWeb.api.dto.response.EventResponse;
-import com.riwi.ticketShowWeb.domain.entities.Event;
 import com.riwi.ticketShowWeb.infraestructure.abstract_services.IEventService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -96,7 +95,7 @@ public class EventController {
         @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))
 })
     @Operation(summary = "search an event by category, title, city", description = "send the event title, category or city to search by this")
-    @GetMapping(path = "/search")
+    @GetMapping(path = "/auth/search")
     public Page<EventResponse> searchEvent(
             @RequestParam(value = "category", defaultValue = "", required = false) String category,
             @RequestParam(value = "title", defaultValue = "", required = false) String title,
@@ -115,12 +114,17 @@ public class EventController {
     })
     @Operation(summary = "Send Email", description = "Send an email when the user complete the ticket buy, use in the buy button, send /idEvent and Queryparam idUser")
     @PostMapping("/sendEmail/{idEvent}")
-    public void sendMail(@PathVariable Long idEvent, @RequestParam Long idUser) 
+    public void sendMail(@PathVariable Long idEvent, @RequestParam String email) 
     {
-        this.eventService.sendEmail(idEvent, idUser);
+        this.eventService.sendEmail(idEvent, email);
     }
 
-    @GetMapping("/{id}")
+    @ApiResponse(responseCode = "400", description = "when idEvent is invalid", content = 
+    {
+        @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))
+    })
+    @Operation(summary = "Send Id event", description = "Send the id event for search")
+    @GetMapping("/auth/{id}")
     public ResponseEntity<EventResponse> findById(@PathVariable Long id) 
     { 
         return ResponseEntity.ok(this.eventService.findById(id));

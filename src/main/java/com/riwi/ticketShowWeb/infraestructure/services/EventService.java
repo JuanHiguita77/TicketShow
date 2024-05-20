@@ -71,11 +71,11 @@ public class EventService implements IEventService {
     }
 
     @Override
-    public void sendEmail(Long idEvent, Long idUser)
+    public void sendEmail(Long idEvent, String email)
     {
         Event event = this.find(idEvent);
 
-        User user = this.findUser(idUser);
+        User user = this.findUserEmail(email);
 
         if (Objects.nonNull(user.getEmail())) 
         {
@@ -99,9 +99,9 @@ public class EventService implements IEventService {
         return this.eventRepository.findById(id).orElseThrow(()-> new BadRequestException("Event"));
     }
 
-    private User findUser(Long id)
+    private User findUserEmail(String email)
     {
-        return this.userRepository.findById(id).orElseThrow(()-> new BadRequestException("User"));
+        return this.userRepository.findByEmail(email).orElseThrow(()-> new BadRequestException("User"));
     }
     
     private EventResponse entityToResponse(Event entity){

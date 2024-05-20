@@ -9,6 +9,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
+
 import com.riwi.ticketShowWeb.infraestructure.helpers.JwtAuthenticationFilter;
 
 import lombok.AllArgsConstructor;
@@ -25,26 +29,49 @@ public class SecurityConfig {
     @Autowired
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    // Declarar Rutas publicas
-    private final String[] PUBLIC_RESOURCES  = { "/search",
-    "/sendEmail", 
-    "/auth/register",
-    "/auth/login",
-    "/auth/**",
-    "/error"
-    }; //Rutas publicas
+    // Rutas públicas específicas
+    private final String[] PUBLIC_RESOURCES = {
+        // Rutas de eventos
+        "/auth/**",
+        "/events/auth/search",
+        "/events/auth/{id}", 
+    
+        // Rutas de correo electrónico
+        "/events/sendEmail/{idEvent}",
 
+        // Rutas para seleccionar asientos
+        "/seat/selectSeat/{idEvent}",
+        "/seat/**",
+
+        "/error",
+        "/error/**",
+
+        "/auth/payload",
+    };
+    
+    
     private final String[] ADMIN_RESOURCES  = { 
-    "/add",
-    "/delete",
-    "/admin/**",
-    "/swagger-ui/index.html", 
-    "/v2/api-docs",
-    "/v3/api-docs/**",
-    "/swagger-resources/**",
-    "/swagger-ui.html",
-    "/swagger-ui/**",
-    "/webjars/**" };
+
+        // Rutas para la documentación de Swagger
+        "/swagger-ui/index.html",
+        "/v2/api-docs",
+        "/v3/api-docs/**",
+        "/swagger-resources/**",
+        "/swagger-ui.html",
+        "/swagger-ui/**",
+        "/webjars/**",
+    
+        // Otras rutas públicas generales
+        "http://localhost:5173/**",
+        "/api/v1/**",
+    
+        // Rutas para acciones específicas (añadir, eliminar, admin)
+        "/events/add",
+        "/events/delete/{id}",
+        "/events/update/{id}",
+        "/add",
+        "/delete",
+     };
     
     /*
      * La anotación @Bean en Spring Boot indica que el objeto retornado por el
@@ -57,7 +84,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable()) //Desabilitar protección csrf -> Statelest
                 .authorizeHttpRequests(authRequest -> authRequest
                 .requestMatchers(PUBLIC_RESOURCES).permitAll() 
-                .requestMatchers(ADMIN_RESOURCES).hasAuthority("ADMIN").anyRequest().authenticated()
+                .requestMatchers(ADMIN_RESOURCES).hasAuthority("admin").anyRequest().authenticated()
                 )//Configurar rutas publicas
                 .sessionManagement(sessionManager -> 
                     sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -65,4 +92,5 @@ public class SecurityConfig {
                 .addFilterBefore(jwtAuthenticationFilter,UsernamePasswordAuthenticationFilter.class) //Agregar el filtro personalizado antes del filtro de spring security
                 .build();
     }
+
 }
