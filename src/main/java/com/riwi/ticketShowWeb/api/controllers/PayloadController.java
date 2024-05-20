@@ -3,21 +3,14 @@ package com.riwi.ticketShowWeb.api.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.StringUtils;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.ErrorResponse;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.riwi.ticketShowWeb.api.dto.response.AuthResp;
 import com.riwi.ticketShowWeb.api.dto.response.PayloadResponse;
-import com.riwi.ticketShowWeb.infraestructure.helpers.JwtAuthenticationFilter;
 import com.riwi.ticketShowWeb.infraestructure.helpers.JwtService;
 import com.riwi.ticketShowWeb.utils.exceptions.BadRequestException;
 
@@ -43,7 +36,7 @@ public class PayloadController {
         @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))
     })
     @Operation(summary = "Send Token to verify", description = "Send a token to verify")
-    @PostMapping(path = "/auth/payload")
+    @PostMapping(path = "/admin/payload")
     public ResponseEntity<PayloadResponse> payloadObtainer(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader) 
     {
         // Verificar si el encabezado de autorización no está vacío y comienza con "Bearer "

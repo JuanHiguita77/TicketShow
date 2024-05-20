@@ -11,4 +11,6 @@ import com.riwi.ticketShowWeb.domain.entities.User;
 public interface UserRepository extends JpaRepository<User, Long>{
 
     public Optional<User> findByUserName(String name);
+
+    Optional<User> findByEmail(String email);
 } 

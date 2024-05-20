@@ -114,9 +114,9 @@ public class EventController {
     })
     @Operation(summary = "Send Email", description = "Send an email when the user complete the ticket buy, use in the buy button, send /idEvent and Queryparam idUser")
     @PostMapping("/sendEmail/{idEvent}")
-    public void sendMail(@PathVariable Long idEvent, @RequestParam Long idUser) 
+    public void sendMail(@PathVariable Long idEvent, @RequestParam String email) 
     {
-        this.eventService.sendEmail(idEvent, idUser);
+        this.eventService.sendEmail(idEvent, email);
     }
 
     @ApiResponse(responseCode = "400", description = "when idEvent is invalid", content = 

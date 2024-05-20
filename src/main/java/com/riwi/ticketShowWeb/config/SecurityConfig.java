@@ -38,9 +38,17 @@ public class SecurityConfig {
     
         // Rutas de correo electrónico
         "/events/sendEmail/{idEvent}",
+
+        // Rutas para seleccionar asientos
+        "/seat/selectSeat/{idEvent}",
+        "/seat/**"
+    };
     
+    
+
+    private final String[] ADMIN_RESOURCES  = { 
         // Otras rutas públicas específicas
-        "/auth/payload",
+        "/admin/payload",
     
         // Rutas para la documentación de Swagger
         "/swagger-ui/index.html",
@@ -62,16 +70,6 @@ public class SecurityConfig {
         "/add",
         "/delete",
         "/admin/**",
-    
-        // Rutas para seleccionar asientos
-        "/seat/selectSeat/{idEvent}",
-        "/seat/**"
-    };
-    
-    
-
-    private final String[] ADMIN_RESOURCES  = { 
-
      };
     
     /*
@@ -94,16 +92,4 @@ public class SecurityConfig {
                 .build();
     }
 
-    
-    /*@Bean
-    public CorsFilter corsFilter() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(true);
-        config.addAllowedOrigin("http://localhost:5173/");
-        config.addAllowedHeader("*");
-        config.addAllowedMethod("*");
-        source.registerCorsConfiguration("/**", config);
-        return new CorsFilter(source);
-    }*/
 }
