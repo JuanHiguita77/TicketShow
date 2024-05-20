@@ -41,15 +41,13 @@ public class SecurityConfig {
 
         // Rutas para seleccionar asientos
         "/seat/selectSeat/{idEvent}",
-        "/seat/**"
-    };
-    
-    
+        "/seat/**",
 
-    private final String[] ADMIN_RESOURCES  = { 
+
+
         // Otras rutas públicas específicas
         "/admin/payload",
-    
+
         // Rutas para la documentación de Swagger
         "/swagger-ui/index.html",
         "/v2/api-docs",
@@ -70,6 +68,12 @@ public class SecurityConfig {
         "/add",
         "/delete",
         "/admin/**",
+    };
+    
+    
+
+    private final String[] ADMIN_RESOURCES  = { 
+
      };
     
     /*
