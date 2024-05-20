@@ -1,5 +1,7 @@
 package com.riwi.ticketShowWeb.api.controllers;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -48,10 +50,16 @@ public class PayloadController {
             // Extraer el payload del token
             Claims claims = jwtService.getAllClaims(token);
 
+            // Obtener el valor del rol como un mapa
+            Map<String, Object> roleMap = claims.get("role", Map.class);
+
+            // Obtener el nombre del rol del mapa
+            String roleName = (String) roleMap.get("name");
+
             // Construir la respuesta del payload
             PayloadResponse payloadResponse = PayloadResponse.builder()
                     .sub(claims.getSubject())
-                    .role(claims.get("role", String.class))
+                    .role(roleName)
                     .id(claims.get("id", Long.class))
                     .exp(claims.getExpiration().getTime())
                     .build();
