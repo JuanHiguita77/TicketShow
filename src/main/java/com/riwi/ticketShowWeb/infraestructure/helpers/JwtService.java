@@ -20,16 +20,11 @@ import io.jsonwebtoken.security.Keys;
 @Component
 public class JwtService 
 {
-    //Crear clave o firma
-    private final String SECRET_KEY = "Y29udHJhc2XDsWEgdWx0cmEgc2VjcmV0YSwgY29udHJhc2XDsWEgdWx0cmEgc2VjcmV0YSwgY29udHJhc2XDsWEgdWx0cmEgc2VjcmV0YQ==";//generada de una web en base 64, ya que se pide asi para el metodo
+    private final String SECRET_KEY = "Y29udHJhc2XDsWEgdWx0cmEgc2VjcmV0YSwgY29udHJhc2XDsWEgdWx0cmEgc2VjcmV0YSwgY29udHJhc2XDsWEgdWx0cmEgc2VjcmV0YQ==";
 
-    //Metodo para encriptar clave secreta
     public SecretKey getKey()
     {
-        //Convertir llave a bytes
         byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
-
-        //Retornar la llave encriptada
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
@@ -44,33 +39,34 @@ public class JwtService
                     .compact();
     }
 
-    //Metodo para obtener el jwt
     public String getToken(User user)
     {
         Map<String, Object> claims = new HashMap<>();
-
         claims.put("id", user.getId());
-        claims.put("role", user.getRole());//name() es para retornar el string como tal
+        claims.put("role", user.getRole());
         return getToken(claims, user);
     }
 
-    //Metodo para obtener los claims
-    public Claims getAllClaims(String token)
-    {
-        //parser es para desarmar, contrario a builder
-        //verificar la firma del servidor: verifyWith
-        return Jwts
-                .parser()
-                .verifyWith(this.getKey())//validar
-                .build()//construirlo
-                .parseSignedClaims(token)//extraer los tokens de base 64 a json
-                .getPayload();//obtener el payload o cuerpo
-    } 
+        //Metodo para obtener los claims
+        public Claims getAllClaims(String token)
+        {
+            //parser es para desarmar, contrario a builder
+            //verificar la firma del servidor: verifyWith
+            return Jwts
+                    .parser()
+                    .verifyWith(this.getKey())//validar
+                    .build()//construirlo
+                    .parseSignedClaims(token)//extraer los tokens de base 64 a json
+                    .getPayload();//obtener el payload o cuerpo
+        } 
 
-    // Obtiene un claim específico del token
     public <T> T getClaim(String token, Function<Claims, T> claimsResolver) {
         Claims claims = this.getAllClaims(token);
         return claimsResolver.apply(claims);
+    }
+
+    public String getEmailFromToken(String token) {
+        return this.getClaim(token, claims -> claims.get("email", String.class));
     }
 
     // Método para obtener el rol del token
@@ -78,41 +74,28 @@ public class JwtService
         return this.getClaim(token, claims -> claims.get("rol", String.class));
     }
 
-    public String getEmailFromToken(String token) {
-        return this.getClaim(token, claims -> claims.get("email", String.class));
-    }
-
-    // Método para obtener la fecha de emisión del token
     public Long getIssuedAtFromToken(String token) {
         return this.getClaim(token, Claims::getIssuedAt).getTime();
     }
 
-    // Método para obtener la fecha de expiración del token
     public Long getExpirationFromToken(String token) {
         return this.getClaim(token, Claims::getExpiration).getTime();
     }
 
-    //username del token
-    public String getUsernameFromToken(String token)
-    {
+    public String getUsernameFromToken(String token) {
         return this.getClaim(token, Claims::getSubject);
     }
 
-    //Fecha de expiracion del token
-    public Date getExpiration(String token)
-    {
+    public Date getExpiration(String token) {
         return this.getClaim(token, Claims::getExpiration);
     }
 
-    public boolean isTokenExpired(String token)
-    {
+    public boolean isTokenExpired(String token) {
         return this.getExpiration(token).before(new Date());
     }
 
-    public boolean isTokenValid(String token, UserDetails userDetails)
-    {
+    public boolean isTokenValid(String token, UserDetails userDetails) {
         String userName = this.getUsernameFromToken(token);
-        
         return (userName.equals(userDetails.getUsername()) && !this.isTokenExpired(token));
     }
 }

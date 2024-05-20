@@ -1,11 +1,7 @@
 package com.riwi.ticketShowWeb.api.controllers;
 
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.StringUtils;
 import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -16,7 +12,6 @@ import com.riwi.ticketShowWeb.api.dto.response.PayloadResponse;
 import com.riwi.ticketShowWeb.infraestructure.helpers.JwtService;
 import com.riwi.ticketShowWeb.utils.exceptions.BadRequestException;
 
-import io.jsonwebtoken.Claims;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -41,14 +36,16 @@ public class PayloadController {
     @PostMapping(path = "/auth/payload")
     public ResponseEntity<PayloadResponse> getPayload(@RequestHeader("Authorization") String authorizationHeader) {
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            String token = authorizationHeader.substring(7);
-            String email = jwtService.getEmailFromToken(token);
-            String role = jwtService.getRoleFromToken(token);
-            Long issuedAt = jwtService.getIssuedAtFromToken(token);
-            Long expiration = jwtService.getExpirationFromToken(token);
 
-            PayloadResponse payloadResponse = new PayloadResponse(email, role, issuedAt, expiration);
-            
+            String token = authorizationHeader.substring(7);
+
+            PayloadResponse payloadResponse = PayloadResponse.builder()
+            .email(jwtService.getEmailFromToken(token))
+            .role(jwtService.getRoleFromToken(token))
+            .iat(jwtService.getIssuedAtFromToken(token))
+            .exp(jwtService.getExpirationFromToken(token))
+            .build();
+                                        
             return ResponseEntity.ok(payloadResponse);
         } else {
             throw new BadRequestException("token");
