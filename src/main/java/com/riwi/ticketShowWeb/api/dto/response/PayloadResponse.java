@@ -13,14 +13,14 @@ import lombok.NoArgsConstructor;
 @Schema(description = "Response object for Payload from Security Token")
 public class PayloadResponse 
 {
-    @Schema(description =  "ID of the user")
-    private Long id;
-
     @Schema(description =  "Sub name of the user token")
-    private String sub;
+    private String email;
 
     @Schema(description =  "Role of user in token")
     private String role;
+
+    @Schema(description =  "Time to token expire")
+    private Long iat; 
 
     @Schema(description =  "Time to token expire")
     private Long exp; 

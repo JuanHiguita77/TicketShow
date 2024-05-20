@@ -50,7 +50,7 @@ public class JwtService
         Map<String, Object> claims = new HashMap<>();
 
         claims.put("id", user.getId());
-        claims.put("role", user.getRole().getName());//name() es para retornar el string como tal
+        claims.put("role", user.getRole());//name() es para retornar el string como tal
         return getToken(claims, user);
     }
 
@@ -67,11 +67,29 @@ public class JwtService
                 .getPayload();//obtener el payload o cuerpo
     } 
 
-    //Obtiene todos los claims pero retorna uno
-    public <T> T getClaim(String token, Function<Claims, T> claimsResolver)
-    {
-        final Claims claims = this.getAllClaims(token);
+    // Obtiene un claim específico del token
+    public <T> T getClaim(String token, Function<Claims, T> claimsResolver) {
+        Claims claims = this.getAllClaims(token);
         return claimsResolver.apply(claims);
+    }
+
+    // Método para obtener el rol del token
+    public String getRoleFromToken(String token) {
+        return this.getClaim(token, claims -> claims.get("rol", String.class));
+    }
+
+    public String getEmailFromToken(String token) {
+        return this.getClaim(token, claims -> claims.get("email", String.class));
+    }
+
+    // Método para obtener la fecha de emisión del token
+    public Long getIssuedAtFromToken(String token) {
+        return this.getClaim(token, Claims::getIssuedAt).getTime();
+    }
+
+    // Método para obtener la fecha de expiración del token
+    public Long getExpirationFromToken(String token) {
+        return this.getClaim(token, Claims::getExpiration).getTime();
     }
 
     //username del token

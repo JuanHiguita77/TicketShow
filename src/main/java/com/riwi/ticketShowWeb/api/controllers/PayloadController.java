@@ -38,65 +38,20 @@ public class PayloadController {
         @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))
     })
     @Operation(summary = "Send Token to verify", description = "Send a token to verify")
-    @PostMapping(path = "/admin/payload")
-    public ResponseEntity<PayloadResponse> payloadObtainer(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader) 
-    {
-        // Verificar si el encabezado de autorización no está vacío y comienza con "Bearer "
-        if (StringUtils.hasLength(authorizationHeader) && authorizationHeader.startsWith("Bearer ")) 
-        {
-            // Extraer el token del encabezado
+    @PostMapping(path = "/auth/payload")
+    public ResponseEntity<PayloadResponse> getPayload(@RequestHeader("Authorization") String authorizationHeader) {
+        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             String token = authorizationHeader.substring(7);
+            String email = jwtService.getEmailFromToken(token);
+            String role = jwtService.getRoleFromToken(token);
+            Long issuedAt = jwtService.getIssuedAtFromToken(token);
+            Long expiration = jwtService.getExpirationFromToken(token);
 
-            // Extraer el payload del token
-            Claims claims = jwtService.getAllClaims(token);
-
-            // Obtener el valor del rol como un mapa
-            Map<String, Object> roleMap = claims.get("role", Map.class);
-
-            // Obtener el nombre del rol del mapa
-            String roleName = (String) roleMap.get("name");
-
-            // Construir la respuesta del payload
-            PayloadResponse payloadResponse = PayloadResponse.builder()
-                    .sub(claims.getSubject())
-                    .role(roleName)
-                    .id(claims.get("id", Long.class))
-                    .exp(claims.getExpiration().getTime())
-                    .build();
-
-            // Devolver el payload del token como parte de la respuesta
+            PayloadResponse payloadResponse = new PayloadResponse(email, role, issuedAt, expiration);
+            
             return ResponseEntity.ok(payloadResponse);
         } else {
-            throw new BadRequestException("Invalid Token");
+            throw new BadRequestException("token");
         }
     }
-
-
-
-    /*@PostMapping(path = "/auth/payload")
-    public ResponseEntity<PayloadResponse> payloadObtainer(@RequestBody String token) 
-    {
-        // Verificar si el token es válido
-        if (StringUtils.hasLength(token) && token.startsWith("Bearer ")) {
-            // Extraer el token del encabezado
-            String tokenNew = token.substring(7); // Eliminar el prefijo "Bearer "
-            
-            // Extraer el payload del token
-            Claims claims = jwtService.getAllClaims(tokenNew);
-
-            // Construir la respuesta del payload
-            PayloadResponse payloadResponse = PayloadResponse.builder()
-                    .sub(claims.getSubject())
-                    .role(claims.get("role", String.class))
-                    .id(claims.get("id", Long.class))
-                    .build();
-    
-            // Devolver el payload del token como parte de la respuesta
-            return ResponseEntity.ok(payloadResponse);
-        }
-        else
-        {
-            throw new BadRequestException("Invalid Token");
-        }
-    }*/
 }

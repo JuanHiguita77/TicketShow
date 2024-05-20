@@ -31,10 +31,10 @@ public class SecurityConfig {
 
     // Rutas públicas específicas
     private final String[] PUBLIC_RESOURCES = {
-        // Rutas de autenticación y autenticación de eventos
+        // Rutas de eventos
         "/auth/**",
         "/events/auth/search",
-        "/events/auth/{id}", // Suponiendo que esta ruta es pública
+        "/events/auth/{id}", 
     
         // Rutas de correo electrónico
         "/events/sendEmail/{idEvent}",
@@ -43,18 +43,15 @@ public class SecurityConfig {
         "/seat/selectSeat/{idEvent}",
         "/seat/**",
 
-        "/admin/payload",
-        "/admin/**",
         "/error",
-        "/error/**"
+        "/error/**",
+
+        "/auth/payload",
     };
     
     
-
     private final String[] ADMIN_RESOURCES  = { 
-        // Otras rutas públicas específicas
 
-    
         // Rutas para la documentación de Swagger
         "/swagger-ui/index.html",
         "/v2/api-docs",
