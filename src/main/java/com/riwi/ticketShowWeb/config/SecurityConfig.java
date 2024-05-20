@@ -29,36 +29,46 @@ public class SecurityConfig {
     @Autowired
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    // Declarar Rutas publicas
-    private final String[] PUBLIC_RESOURCES  = { 
-    "/auth/**",  
-    "/events/auth/search",
-    "/events/sendEmail", 
-    "/events/auth/**",
-    "/error/**",
-    "/error",
-    "/events/error/**",
-    "/events/error",
-    "/auth/payload",
-    "/swagger-ui/index.html", 
-    "/v2/api-docs",
-    "/v3/api-docs/**",
-    "/swagger-resources/**",
-    "/swagger-ui.html",
-    "/swagger-ui/**",
-    "/webjars/**",
-
-
-    "http://localhost:5173/",
-    "/seat/selectSeat/",
-    "/seat/selectSeat/**",
-    "/seat/**",
-    "/events/**",
-    "/api/v1/**",
-    "/add",
-    "/delete",
-    "/admin/**"
-    }; //Rutas publicas
+    // Rutas públicas específicas
+    private final String[] PUBLIC_RESOURCES = {
+        // Rutas de autenticación y autenticación de eventos
+        "/auth/**",
+        "/events/auth/search",
+        "/events/auth/{id}", // Suponiendo que esta ruta es pública
+    
+        // Rutas de correo electrónico
+        "/events/sendEmail/{idEvent}",
+    
+        // Otras rutas públicas específicas
+        "/auth/payload",
+    
+        // Rutas para la documentación de Swagger
+        "/swagger-ui/index.html",
+        "/v2/api-docs",
+        "/v3/api-docs/**",
+        "/swagger-resources/**",
+        "/swagger-ui.html",
+        "/swagger-ui/**",
+        "/webjars/**",
+    
+        // Otras rutas públicas generales
+        "http://localhost:5173/**",
+        "/api/v1/**",
+    
+        // Rutas para acciones específicas (añadir, eliminar, admin)
+        "/events/add",
+        "/events/delete/{id}",
+        "/events/update/{id}",
+        "/add",
+        "/delete",
+        "/admin/**",
+    
+        // Rutas para seleccionar asientos
+        "/seat/selectSeat/{idEvent}",
+        "/seat/**"
+    };
+    
+    
 
     private final String[] ADMIN_RESOURCES  = { 
 
