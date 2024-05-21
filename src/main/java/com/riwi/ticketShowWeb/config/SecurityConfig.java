@@ -26,49 +26,40 @@ public class SecurityConfig {
     @Autowired
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    // Rutas públicas específicas
     private final String[] PUBLIC_RESOURCES = {
         // Rutas de eventos
-        "/auth/**",
         "/events/auth/search",
-        "/events/auth/{id}", 
-    
-        // Rutas de correo electrónico
+        "/events/auth/{id}",
         "/events/sendEmail/{idEvent}",
+        "/seat/selectSeat/**",
 
-        // Rutas para seleccionar asientos
-        "/seat/selectSeat/{idEvent}",
-        "/seat/**",
-
+        // Otras rutas públicas generales
         "/error",
         "/error/**",
-
         "/auth/payload",
-    };
-    
-    
-    private final String[] ADMIN_RESOURCES  = { 
 
-        // Rutas para la documentación de Swagger
         "/swagger-ui/index.html",
         "/v2/api-docs",
         "/v3/api-docs/**",
         "/swagger-resources/**",
         "/swagger-ui.html",
         "/swagger-ui/**",
-        "/webjars/**",
+        "/webjars/**"
+    };
     
+    private final String[] ADMIN_RESOURCES  = {
+        // Rutas para la documentación de Swagger
+        
         // Otras rutas públicas generales
         "http://localhost:5173/**",
         "/api/v1/**",
-    
         // Rutas para acciones específicas (añadir, eliminar, admin)
         "/events/add",
         "/events/delete/{id}",
         "/events/update/{id}",
         "/add",
         "/delete",
-     };
+    };
     
     /*
      * La anotación @Bean en Spring Boot indica que el objeto retornado por el
