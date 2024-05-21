@@ -9,6 +9,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 import com.riwi.ticketShowWeb.infraestructure.helpers.JwtAuthenticationFilter;
 
@@ -26,40 +29,53 @@ public class SecurityConfig {
     @Autowired
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
+    // Rutas públicas específicas
     private final String[] PUBLIC_RESOURCES = {
-        // Rutas de eventos
+        // Rutas de autenticación y autenticación de eventos
+        "/auth/**",
         "/events/auth/search",
-        "/events/auth/{id}",
+        "/events/auth/{id}", // Suponiendo que esta ruta es pública
+    
+        // Rutas de correo electrónico
         "/events/sendEmail/{idEvent}",
-        "/seat/selectSeat/**",
 
-        // Otras rutas públicas generales
-        "/error",
+        // Rutas para seleccionar asientos
+        "/seat/selectSeat/{idEvent}",
+        "/seat/**",
+
         "/error/**",
-        "/auth/payload",
+        "/error"
+        
+    };
+    
+    
 
+    private final String[] ADMIN_RESOURCES  = { 
+        // Otras rutas públicas específicas
+        "/admin/payload",
+
+        // Rutas para la documentación de Swagger
         "/swagger-ui/index.html",
         "/v2/api-docs",
         "/v3/api-docs/**",
         "/swagger-resources/**",
         "/swagger-ui.html",
         "/swagger-ui/**",
-        "/webjars/**"
-    };
+        "/webjars/**",
     
-    private final String[] ADMIN_RESOURCES  = {
-        // Rutas para la documentación de Swagger
-        
         // Otras rutas públicas generales
         "http://localhost:5173/**",
         "/api/v1/**",
+    
         // Rutas para acciones específicas (añadir, eliminar, admin)
         "/events/add",
         "/events/delete/{id}",
         "/events/update/{id}",
         "/add",
         "/delete",
-    };
+        "/admin/**",
+        "/admin/payload"
+     };
     
     /*
      * La anotación @Bean en Spring Boot indica que el objeto retornado por el
