@@ -9,52 +9,35 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
 
 import com.riwi.ticketShowWeb.infraestructure.helpers.JwtAuthenticationFilter;
 
 import lombok.AllArgsConstructor;
 
 @Configuration
-@EnableWebSecurity 
+@EnableWebSecurity
 @AllArgsConstructor
 public class SecurityConfig {
 
-    // Inyecciones de dependencia
     @Autowired
     private final AuthenticationProvider authenticationProvider;
 
     @Autowired
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    // Rutas públicas específicas
     private final String[] PUBLIC_RESOURCES = {
-        // Rutas de autenticación y autenticación de eventos
         "/auth/**",
         "/events/auth/search",
-        "/events/auth/{id}", // Suponiendo que esta ruta es pública
-    
-        // Rutas de correo electrónico
+        "/events/auth/{id}",
         "/events/sendEmail/{idEvent}",
-
-        // Rutas para seleccionar asientos
         "/seat/selectSeat/{idEvent}",
         "/seat/**",
-
         "/error/**",
         "/error"
-        
     };
-    
-    
 
-    private final String[] ADMIN_RESOURCES  = { 
-        // Otras rutas públicas específicas
+    private final String[] ADMIN_RESOURCES = {
         "/admin/payload",
-
-        // Rutas para la documentación de Swagger
         "/swagger-ui/index.html",
         "/v2/api-docs",
         "/v3/api-docs/**",
@@ -62,12 +45,8 @@ public class SecurityConfig {
         "/swagger-ui.html",
         "/swagger-ui/**",
         "/webjars/**",
-    
-        // Otras rutas públicas generales
         "http://localhost:5173/**",
         "/api/v1/**",
-    
-        // Rutas para acciones específicas (añadir, eliminar, admin)
         "/events/add",
         "/events/delete/{id}",
         "/events/update/{id}",
@@ -75,26 +54,20 @@ public class SecurityConfig {
         "/delete",
         "/admin/**",
         "/admin/payload"
-     };
-    
-    /*
-     * La anotación @Bean en Spring Boot indica que el objeto retornado por el
-     * método debe ser registrado como un bean en el contexto de Spring.
-    */
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+    };
 
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-                .csrf(csrf -> csrf.disable()) //Desabilitar protección csrf -> Statelest
+                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authRequest -> authRequest
-                .requestMatchers(PUBLIC_RESOURCES).permitAll() 
-                .requestMatchers(ADMIN_RESOURCES).hasAuthority("admin").anyRequest().authenticated()
-                )//Configurar rutas publicas
-                .sessionManagement(sessionManager -> 
-                    sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authenticationProvider(authenticationProvider) //Agregarmos el proveedor de autenticación 
-                .addFilterBefore(jwtAuthenticationFilter,UsernamePasswordAuthenticationFilter.class) //Agregar el filtro personalizado antes del filtro de spring security
+                        .requestMatchers(PUBLIC_RESOURCES).permitAll()
+                        .requestMatchers(ADMIN_RESOURCES).hasAuthority("admin").anyRequest().authenticated()
+                )
+                .sessionManagement(sessionManager ->
+                        sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authenticationProvider(authenticationProvider)
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
-
 }

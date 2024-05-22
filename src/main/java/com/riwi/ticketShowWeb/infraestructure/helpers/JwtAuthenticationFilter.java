@@ -3,12 +3,12 @@ package com.riwi.ticketShowWeb.infraestructure.helpers;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -28,6 +28,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
 
     @Autowired
+    @Qualifier("CustomUserDetailsService")
     private final UserDetailsService userDetailsService;
 
     @Override
@@ -40,10 +41,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             if (email != null) {
                 UserDetails userDetails = userDetailsService.loadUserByUsername(email);
-
+                
                 if (jwtService.isTokenValid(token, userDetails)) {
-                    // Verificar el rol
-                    String role = jwtService.getRoleFromToken(token);
                     UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                             userDetails, null, userDetails.getAuthorities());
 
