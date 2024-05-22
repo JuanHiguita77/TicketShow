@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -114,9 +115,13 @@ public class EventController {
     })
     @Operation(summary = "Send Email", description = "Send an email when the user complete the ticket buy, use in the buy button, send /idEvent and Queryparam idUser")
     @PostMapping("/sendEmail/{idEvent}")
-    public void sendMail(@PathVariable Long idEvent, @RequestParam String email) 
-    {
-        this.eventService.sendEmail(idEvent, email);
+    public ResponseEntity<String> sendMail(@PathVariable Long idEvent, @RequestParam String email) {
+        try {
+            this.eventService.sendEmail(idEvent, email);
+            return ResponseEntity.ok("Email sended successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to send email");
+        }
     }
 
     @ApiResponse(responseCode = "400", description = "when idEvent is invalid", content = 

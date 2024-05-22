@@ -1,6 +1,7 @@
 package com.riwi.ticketShowWeb.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -52,6 +53,7 @@ public class ApplicationConfig
 
     @Bean
     //Servicio usado por security para cargar detalles del user durante la autentificacion
+    @Qualifier("userdetailsService")
     public UserDetailsService userdetailsService()
     {
         return username -> userRepository.findByUserName(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
