@@ -56,7 +56,11 @@ public class SecurityConfig {
 
         "/admin/**",
     };
-
+    
+    /*
+     * La anotación @Bean en Spring Boot indica que el objeto retornado por el
+     * método debe ser registrado como un bean en el contexto de Spring.
+    */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
