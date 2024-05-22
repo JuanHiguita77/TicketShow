@@ -1,16 +1,12 @@
 package com.riwi.ticketShowWeb.infraestructure.helpers;
 
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.function.Function;
 
 import javax.crypto.SecretKey;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-
-import com.riwi.ticketShowWeb.domain.entities.User;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

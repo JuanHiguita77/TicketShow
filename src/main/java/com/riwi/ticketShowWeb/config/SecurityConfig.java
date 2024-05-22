@@ -33,11 +33,12 @@ public class SecurityConfig {
         "/seat/selectSeat/{idEvent}",
         "/seat/**",
         "/error/**",
-        "/error"
+        "/error",
+
+        "/admin/payload"
     };
 
     private final String[] ADMIN_RESOURCES = {
-        "/admin/payload",
         "/swagger-ui/index.html",
         "/v2/api-docs",
         "/v3/api-docs/**",
@@ -45,15 +46,15 @@ public class SecurityConfig {
         "/swagger-ui.html",
         "/swagger-ui/**",
         "/webjars/**",
+
         "http://localhost:5173/**",
         "/api/v1/**",
+
         "/events/add",
-        "/events/delete/{id}",
-        "/events/update/{id}",
-        "/add",
-        "/delete",
+        "/events/delete/**",
+        "/events/update/**",
+
         "/admin/**",
-        "/admin/payload"
     };
 
     @Bean
@@ -62,7 +63,8 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authRequest -> authRequest
                         .requestMatchers(PUBLIC_RESOURCES).permitAll()
-                        .requestMatchers(ADMIN_RESOURCES).hasAuthority("admin").anyRequest().authenticated()
+                        .requestMatchers(ADMIN_RESOURCES).hasAuthority("admin")
+                        .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManager ->
                         sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
